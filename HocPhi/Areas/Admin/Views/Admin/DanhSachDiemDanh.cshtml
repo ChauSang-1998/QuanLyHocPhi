@@ -1,0 +1,100 @@
+﻿@model IEnumerable<HocPhi.Models.HocSinh>
+
+@{
+    ViewBag.Title = "DanhSachDiemDanh";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2>DanhSachDiemDanh</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.TenHocSinh)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.GioiTinh)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NamSinh)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TenPhuHuynh)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DienThoai)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DiaChiLienHe)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NgayDangKy)
+        </th>
+       
+        <th>Chọn</th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.TenHocSinh)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.GioiTinh)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NamSinh)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TenPhuHuynh)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DienThoai)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DiaChiLienHe)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NgayDangKy)
+        </td>
+       
+        <td>
+            <input type="checkbox" class="DiemdanhHS">
+        </td>
+        @Html.HiddenFor(modeItem => item.MaHocSinh, htmlAttributes: new { @class = "MaCuaHS"})
+    </tr>
+}
+
+</table>
+<form id="sendform" action="/Admin/Admin/DiemDanhTick" method="post">
+    <input id="DiemDanhBtn" value="Điểm Danh" />
+</form>
+
+<script type="text/javascript">
+    $(function () {
+        $("#DiemDanhBtn").click(function (e) {
+            e.preventDefault();
+            var searchIDs = $(".DiemdanhHS").map(function () {
+                return $(this).is(':checked');
+            }).get();
+            var MaHS = $(".MaCuaHS").map(function () {
+                return $(this).val();
+            }).get();
+            $("<input />").attr("type", "hidden")
+                .attr("name", 'Status')
+                .attr("value", searchIDs.toString())
+                .appendTo("#sendform");
+
+            $("<input />").attr("type", "hidden")
+                .attr("name", 'MaHS')
+                .attr("value", MaHS.toString())
+                .appendTo("#sendform");
+
+
+            $("#sendform").unbind("submit").submit();
+        });
+    });
+</script>

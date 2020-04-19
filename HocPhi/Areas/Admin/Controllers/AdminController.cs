@@ -5,6 +5,12 @@ using System.Web;
 using System.Web.Mvc;
 using System.ComponentModel.DataAnnotations;
 using HocPhi.Models;
+using System.Data;
+using System.Data.SqlClient;
+using Dapper;
+using HocPhi.Common;
+
+using System.Data.Entity;
 
 namespace HocPhi.Areas.Admin.Controllers
 {
@@ -230,6 +236,7 @@ namespace HocPhi.Areas.Admin.Controllers
             db.SaveChanges();
             return RedirectToAction("GiaoVien");
         }
+        [HttpGet]
         public ActionResult ChonLopDiemDanh()
         {
             using (HocPhiEntities context = new HocPhiEntities())
@@ -240,18 +247,99 @@ namespace HocPhi.Areas.Admin.Controllers
             }
                 
         }
-        [HttpGet]
-        public ActionResult LayDanhSachDiemDanh(string MaLop)
+        [HttpPost]
+        public ActionResult LayDanhSachDiemDanh(FormCollection form)
         {
+            string MaLop = form[0].ToString();
+            ViewBag.Operation = "create";
             using (HocPhiEntities context = new HocPhiEntities())
             {
                 var HsTheoLop = (from hs in context.HocSinhs
                                  join lop in context.Lops on hs.Lop.MaLop equals lop.MaLop
                                  where hs.Lop.MaLop == MaLop
-                                 select hs).ToList();
-                return View(HsTheoLop);
+                                 select hs);
+                var DsDiemDanh = (from dd in context.DiemDanhs
+                                  join hs in HsTheoLop on dd.HocSinh equals hs.MaHocSinh
+                                  where dd.NgayDangKy.Year == DateTime.Now.Year && dd.NgayDangKy.Month == DateTime.Now.Month && dd.NgayDangKy.Day == DateTime.Now.Day
+                                  select dd
+                                  ).ToList();
+                var HSTheoTrangThaiDiemDanh = HsTheoLop.FullOuterJoin(DsDiemDanh, a => a.MaHocSinh, b => b.HocSinh, (a, b, MaHocSinh) => new 
+                {
+                    MaHocSinh,
+                    a.TenHocSinh,
+                    a.GioiTinh,
+                    a.NamSinh,
+                    a.TenPhuHuynh,
+                    a.DienThoai,
+                    a.DiaChiLienHe,
+                    b?.TrangThaiDiemDanh
+                });
+                List<DiemDanhViewModel> _hs = new List<DiemDanhViewModel>();
+                foreach(var hs in HSTheoTrangThaiDiemDanh)
+                {
+                    if (hs.TrangThaiDiemDanh != null)
+                    {
+                        ViewBag.Operation = "edit";
+                    }
+                    _hs.Add(new DiemDanhViewModel()
+                    {
+                        MaHocSinh = hs.MaHocSinh,
+                        TenHocSinh = hs.TenHocSinh,
+                        GioiTinh = hs.GioiTinh,
+                        NamSinh = hs.NamSinh,
+                        TenPhuHuynh = hs.TenPhuHuynh,
+                        DienThoai = hs.DienThoai,
+                        DiaChiLienHe = hs.DiaChiLienHe,
+                        TrangThaiDiemDanh = hs.TrangThaiDiemDanh
+                    });
+                }
+                return View("LayDanhSachDiemDanh", _hs);
             }
                 
+        }
+        [HttpPost]
+        public ActionResult DiemDanhUpdate(FormCollection form)
+        {
+            string[] status = form["statuslist"].ToString().Split(new Char[] { ',' });
+            List<bool> statusbool = status.Select(x =>{
+                    if (x == "true") return true;
+                    else return false;
+            }).ToList();
+            string[] dsHS  = form[1].ToString().Split(new Char[] { ',' });
+            using (HocPhiEntities context = new HocPhiEntities())
+            {
+                using (IDbConnection db = new SqlConnection(context.Database.Connection.ConnectionString))
+                {
+                    if (form["operation"].ToString() == "create")
+                    {
+                        int i = 0;
+                        dsHS.ToList().ForEach(
+                            x =>
+                            {
+                                var p = new DynamicParameters();
+                                p.Add("@MahocSinh", x);
+                                p.Add("@TrangThai", statusbool[i]);
+                                db.Execute("sp_DiemDanhHS", p, commandType: CommandType.StoredProcedure);
+                                i++;
+                            });
+                    }
+                    else
+                    {
+                        int j = 0;
+                        dsHS.ToList().ForEach(
+                            x =>
+                            {
+                                var q = new DynamicParameters();
+                                q.Add("@MaHs", x);
+                                q.Add("@TrangThaiDiemDanh", statusbool[j]);
+                                db.Execute("sp_CapNhatTrangThaiDiemDanh", q, commandType: CommandType.StoredProcedure);
+                                j++;
+                            });
+                    }    
+                }
+            }
+            return View();
+
         }
     }
 }

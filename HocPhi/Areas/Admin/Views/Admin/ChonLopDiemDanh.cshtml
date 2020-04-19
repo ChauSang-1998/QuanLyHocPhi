@@ -6,11 +6,13 @@
 }
 
 <h2>Chọn Lớp điểm Danh</h2>
-
+@using (Html.BeginForm("LayDanhSachDiemDanh", "Admin", FormMethod.Post))
+{ 
 @Html.DropDownList("ddl", Model.Select(item => new SelectListItem
 {
     Value = item.MaLop,
     Text = item.TenLop,
     Selected = "select" == item.MaLop
 }))
-
+    <input type="submit" class="sendform" />
+}

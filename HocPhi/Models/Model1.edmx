@@ -33,6 +33,7 @@
           </Key>
           <Property Name="NgayDangKy" Type="date" Nullable="false" />
           <Property Name="HocSinh" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="TrangThaiDiemDanh" Type="bit" />
         </EntityType>
         <EntityType Name="GiaoVien">
           <Key>
@@ -228,6 +229,7 @@
           <Property Name="NgayDangKy" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="HocSinh" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="HocSinh1" Relationship="Self.FK_DiemDanh_HocSinh" FromRole="DiemDanh" ToRole="HocSinh" />
+          <Property Name="TrangThaiDiemDanh" Type="Boolean" />
         </EntityType>
         <EntityType Name="GiaoVien">
           <Key>
@@ -431,6 +433,7 @@
           <EntitySetMapping Name="DiemDanhs">
             <EntityTypeMapping TypeName="HocPhiModel.DiemDanh">
               <MappingFragment StoreEntitySet="DiemDanh">
+                <ScalarProperty Name="TrangThaiDiemDanh" ColumnName="TrangThaiDiemDanh" />
                 <ScalarProperty Name="NgayDangKy" ColumnName="NgayDangKy" />
                 <ScalarProperty Name="HocSinh" ColumnName="HocSinh" />
               </MappingFragment>
