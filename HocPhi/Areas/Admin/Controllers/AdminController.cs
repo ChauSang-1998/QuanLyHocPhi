@@ -14,8 +14,10 @@ using System.Data.Entity;
 
 namespace HocPhi.Areas.Admin.Controllers
 {
+    
     public class AdminController : Controller
     {
+        private int TongSoHocSinh { get; set; }
         HocPhiEntities db = new HocPhiEntities();
         // GET: Admin/Admin
         public ActionResult Index()
@@ -260,7 +262,7 @@ namespace HocPhi.Areas.Admin.Controllers
                                  select hs);
                 var DsDiemDanh = (from dd in context.DiemDanhs
                                   join hs in HsTheoLop on dd.HocSinh equals hs.MaHocSinh
-                                  where dd.NgayDangKy.Year == DateTime.Now.Year && dd.NgayDangKy.Month == DateTime.Now.Month && dd.NgayDangKy.Day == DateTime.Now.Day
+                                  where dd.NgayDiemDanh.Year == DateTime.Now.Year && dd.NgayDiemDanh.Month == DateTime.Now.Month && dd.NgayDiemDanh.Day == DateTime.Now.Day
                                   select dd
                                   ).ToList();
                 var HSTheoTrangThaiDiemDanh = HsTheoLop.FullOuterJoin(DsDiemDanh, a => a.MaHocSinh, b => b.HocSinh, (a, b, MaHocSinh) => new 
@@ -293,10 +295,13 @@ namespace HocPhi.Areas.Admin.Controllers
                         TrangThaiDiemDanh = hs.TrangThaiDiemDanh
                     });
                 }
+                TongSoHocSinh = _hs.Count();
                 return View("LayDanhSachDiemDanh", _hs);
+
             }
                 
         }
+        
         [HttpPost]
         public ActionResult DiemDanhUpdate(FormCollection form)
         {
@@ -306,6 +311,7 @@ namespace HocPhi.Areas.Admin.Controllers
                     else return false;
             }).ToList();
             string[] dsHS  = form[1].ToString().Split(new Char[] { ',' });
+            ViewBag.TongSo = TongSoHocSinh;
             using (HocPhiEntities context = new HocPhiEntities())
             {
                 using (IDbConnection db = new SqlConnection(context.Database.Connection.ConnectionString))
@@ -322,6 +328,7 @@ namespace HocPhi.Areas.Admin.Controllers
                                 db.Execute("sp_DiemDanhHS", p, commandType: CommandType.StoredProcedure);
                                 i++;
                             });
+                        ViewBag.DaDiemDanh = i;
                     }
                     else
                     {
@@ -335,6 +342,7 @@ namespace HocPhi.Areas.Admin.Controllers
                                 db.Execute("sp_CapNhatTrangThaiDiemDanh", q, commandType: CommandType.StoredProcedure);
                                 j++;
                             });
+                        ViewBag.DaDiemDanh = j;
                     }    
                 }
             }

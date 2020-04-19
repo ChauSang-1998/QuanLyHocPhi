@@ -322,7 +322,6 @@
     <Content Include="Areas\Admin\Views\Admin\HeHoc.cshtml" />
     <Content Include="Areas\Admin\Views\Admin\HocSinh.cshtml" />
     <Content Include="Areas\Admin\Views\Admin\Lop.cshtml" />
-    <Content Include="Areas\Admin\Views\Admin\DiemDanh.cshtml" />
     <Content Include="Areas\Admin\Views\Admin\ThemHeHoc.cshtml" />
     <Content Include="Areas\Admin\Views\Admin\SuaHeHoc.cshtml" />
     <Content Include="Areas\Admin\Views\Admin\ThemHocSinh.cshtml" />
@@ -340,10 +339,7 @@
     <Content Include="Areas\Admin\Views\Admin\GiaoVien.cshtml" />
     <Content Include="Areas\Admin\Views\Admin\ThemGiaoVien.cshtml" />
     <Content Include="Areas\Admin\Views\Admin\SuaGiaoVien.cshtml" />
-    <Content Include="Areas\Admin\Views\Admin\BuaAn.cshtml" />
-    <Content Include="Areas\Admin\Views\Admin\ChiTietBuaAn.cshtml" />
     <Content Include="Areas\Admin\Views\Admin\XemHocSinh.cshtml" />
-    <Content Include="Areas\Admin\Views\Admin\SuaBuaAn.cshtml" />
     <EntityDeploy Include="Models\Model1.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Model1.Designer.cs</LastGenOutput>
@@ -352,7 +348,6 @@
       <DependentUpon>Model1.edmx</DependentUpon>
     </Content>
     <Content Include="Areas\Admin\Views\Admin\ChonLopDiemDanh.cshtml" />
-    <Content Include="Areas\Admin\Views\Admin\DanhSachDiemDanh.cshtml" />
     <Content Include="Areas\Admin\Views\Admin\DiemDanhUpdate.cshtml" />
     <Content Include="Areas\Admin\Views\Admin\LayDanhSachDiemDanh.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
