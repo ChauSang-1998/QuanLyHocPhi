@@ -17,7 +17,6 @@ namespace HocPhi.Areas.Admin.Controllers
     
     public class AdminController : Controller
     {
-        private int TongSoHocSinh { get; set; }
         HocPhiEntities db = new HocPhiEntities();
         // GET: Admin/Admin
         public ActionResult Index()
@@ -295,7 +294,7 @@ namespace HocPhi.Areas.Admin.Controllers
                         TrangThaiDiemDanh = hs.TrangThaiDiemDanh
                     });
                 }
-                TongSoHocSinh = _hs.Count();
+                Session["TongSoHocSinh"] = _hs.Count();
                 return View("LayDanhSachDiemDanh", _hs);
 
             }
@@ -311,7 +310,7 @@ namespace HocPhi.Areas.Admin.Controllers
                     else return false;
             }).ToList();
             string[] dsHS  = form[1].ToString().Split(new Char[] { ',' });
-            ViewBag.TongSo = TongSoHocSinh;
+            ViewBag.TongSoHocSinh = (int)Session["TongSoHocSinh"];
             using (HocPhiEntities context = new HocPhiEntities())
             {
                 using (IDbConnection db = new SqlConnection(context.Database.Connection.ConnectionString))

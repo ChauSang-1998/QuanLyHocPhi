@@ -1,0 +1,73 @@
+﻿@model IEnumerable<HocPhi.Models.DiemDanhViewModel>
+
+@{ 
+    bool _trangthai;
+}
+
+
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.TenHocSinh)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GioiTinh)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NamSinh)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TenPhuHuynh)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DienThoai)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DiaChiLienHe)
+            </th>
+            <th>
+                Điểm Danh
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            if (item.TrangThaiDiemDanh != null)
+            {
+                _trangthai = (bool)item.TrangThaiDiemDanh;
+
+            }
+            else
+            {
+                _trangthai = false;
+            }
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TenHocSinh)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.GioiTinh)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NamSinh)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TenPhuHuynh)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DienThoai)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DiaChiLienHe)
+                </td>
+                <td>
+                    @Html.CheckBoxFor(modelItem => _trangthai, htmlAttributes: new { @class = "statusDiemDanh" })
+                </td>
+                @Html.HiddenFor(modeItem => item.MaHocSinh, htmlAttributes: new { @class = "MaCuaHS" })
+
+            </tr>
+        }
+
+ </table>
+
+
