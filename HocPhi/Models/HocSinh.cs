@@ -17,8 +17,8 @@ namespace HocPhi.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public HocSinh()
         {
-            this.BienLais = new HashSet<BienLai>();
             this.DiemDanhs = new HashSet<DiemDanh>();
+            this.BienLais = new HashSet<BienLai>();
         }
     
         public string MaHocSinh { get; set; }
@@ -33,10 +33,10 @@ namespace HocPhi.Models
         public Nullable<System.DateTime> NgayDangKy { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<BienLai> BienLais { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DiemDanh> DiemDanhs { get; set; }
         public virtual HeHoc HeHoc { get; set; }
         public virtual Lop Lop { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<BienLai> BienLais { get; set; }
     }
 }

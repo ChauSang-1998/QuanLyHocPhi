@@ -4,24 +4,26 @@
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
-<h2>DiemDanh</h2>
+<h2>Thống Kê Điểm Danh</h2>
 
 <form method="POST" id="formfilter">
     <label>Chọn lớp </label>
-    <select id="classroom" style="width: 285px; height: 32px;" name="MaLop">
+    <select id="classroom"  name="MaLop">
         <option selected="selected" value="">Chọn một lớp</option>
-
     </select>
-    <br />
+
 
     <div class='input-group date' id='datetimepicker2'>
-        <label> Chọn ngày </label><input type='text' class="form-control" name="NgayDiemDanh" style="max-width: 280px" />
+        <label> Chọn ngày </label>
+        
+   
+        <input type='text' class="form-control" name="NgayDiemDanh" style="max-width: 200px;margin:5px; "/>
         <span class="input-group-addon">
             <span class="fas fa-calendar"></span>
         </span>
     </div>
     <br />
-    <input type="submit" value="Xem" id="formbtn" />
+    <input type="submit" class="button" value="Xem Danh Sách" id="formbtn" />
 </form>
 <div id="result">
 

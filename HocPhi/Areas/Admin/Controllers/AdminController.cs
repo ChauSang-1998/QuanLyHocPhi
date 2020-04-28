@@ -144,6 +144,13 @@ namespace HocPhi.Areas.Admin.Controllers
             List<Lop> ds = db.Lops.Where(x => x.MaHeHoc == malop).ToList();
             return Json(ds, JsonRequestBehavior.AllowGet);
         }
+        public JsonResult GetStateListhehoc_hocsinh(string mahocsinh)
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+            List<HocSinh> ds = db.HocSinhs.Where(x => x.MaHeHoc == mahocsinh).ToList();
+            return Json(ds, JsonRequestBehavior.AllowGet);
+
+        }
         [HttpGet]
         public ActionResult ThemLop()
         {
@@ -205,7 +212,6 @@ namespace HocPhi.Areas.Admin.Controllers
         [HttpGet]
         public ActionResult ThemGiaoVien()
         {
-
             return View();
         }
         [HttpPost]
@@ -348,5 +354,32 @@ namespace HocPhi.Areas.Admin.Controllers
             return View();
 
         }
+        public ActionResult BienLai()
+        {
+            var blai = db.BienLais.ToList();
+            TempData["Tienan"] = "50000";          
+            return View(blai);
+        }
+        [HttpGet]
+        public ActionResult ThemBienLai()
+        {
+            ViewBag.HeHoc_MHH = new SelectList(db.HeHocs.ToList().OrderBy(n => n.MaHeHoc), "MaHeHoc", "MaHeHoc");
+            ViewBag.Ma_HS = new SelectList(db.HocSinhs.ToList().OrderBy(n => n.MaHocSinh), "MaHocSinh", "MaHocSinh");
+
+            return View();
+        }
+        [HttpPost]
+        public ActionResult ThemBienLai(BienLai BienLai)
+        {
+            ViewBag.HeHoc_MHH = new SelectList(db.HeHocs.ToList().OrderBy(n => n.MaHeHoc), "MaHeHoc", "MaHeHoc");
+            ViewBag.Ma_HS = new SelectList(db.HocSinhs.ToList().OrderBy(n => n.MaHocSinh), "MaHocSinh", "MaHocSinh");
+
+            db.BienLais.Add(BienLai);
+            db.SaveChanges();
+            return RedirectToAction("BienLai");
+           
+        }
+
     }
+    
 }

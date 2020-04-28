@@ -21,10 +21,10 @@
           </Key>
           <Property Name="MaBienLai" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="MaHocSinh" Type="nvarchar" MaxLength="50" />
-          <Property Name="TongCong" Type="nvarchar" MaxLength="50" />
-          <Property Name="TinhTrang" Type="nvarchar" MaxLength="50" />
-          <Property Name="NgayNop" Type="nvarchar" MaxLength="50" />
+          <Property Name="TongCong" Type="float" />
+          <Property Name="NgayNop" Type="date" />
           <Property Name="NguoiNop" Type="nvarchar" MaxLength="50" />
+          <Property Name="TienAn" Type="float" />
         </EntityType>
         <EntityType Name="DiemDanh">
           <Key>
@@ -209,18 +209,6 @@
           <Property Name="TenAdmin" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="HinhAnh" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityType Name="BienLai">
-          <Key>
-            <PropertyRef Name="MaBienLai" />
-          </Key>
-          <Property Name="MaBienLai" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="MaHocSinh" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="TongCong" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="TinhTrang" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="NgayNop" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="NguoiNop" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="HocSinh" Relationship="Self.FK_BienLai_HocSinh" FromRole="BienLai" ToRole="HocSinh" />
-        </EntityType>
         <EntityType Name="DiemDanh">
           <Key>
             <PropertyRef Name="HocSinh" />
@@ -266,10 +254,10 @@
           <Property Name="DienThoai" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <Property Name="DiaChiLienHe" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="NgayDangKy" Type="DateTime" Precision="0" />
-          <NavigationProperty Name="BienLais" Relationship="Self.FK_BienLai_HocSinh" FromRole="HocSinh" ToRole="BienLai" />
           <NavigationProperty Name="DiemDanhs" Relationship="Self.FK_DiemDanh_HocSinh" FromRole="HocSinh" ToRole="DiemDanh" />
           <NavigationProperty Name="HeHoc" Relationship="Self.FK_HocSinh_HeHoc" FromRole="HocSinh" ToRole="HeHoc" />
           <NavigationProperty Name="Lop" Relationship="Self.FK_HocSinh_Lop" FromRole="HocSinh" ToRole="Lop" />
+          <NavigationProperty Name="BienLais" Relationship="HocPhiModel.FK_BienLai_HocSinh" FromRole="HocSinh" ToRole="BienLai" />
         </EntityType>
         <EntityType Name="Lop">
           <Key>
@@ -295,18 +283,6 @@
           <Property Name="version" Type="Int32" />
           <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
-        <Association Name="FK_BienLai_HocSinh">
-          <End Role="HocSinh" Type="Self.HocSinh" Multiplicity="0..1" />
-          <End Role="BienLai" Type="Self.BienLai" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="HocSinh">
-              <PropertyRef Name="MaHocSinh" />
-            </Principal>
-            <Dependent Role="BienLai">
-              <PropertyRef Name="MaHocSinh" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_DiemDanh_HocSinh">
           <End Role="HocSinh" Type="Self.HocSinh" Multiplicity="1" />
           <End Role="DiemDanh" Type="Self.DiemDanh" Multiplicity="*" />
@@ -369,17 +345,12 @@
         </Association>
         <EntityContainer Name="HocPhiEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Admins" EntityType="Self.Admin" />
-          <EntitySet Name="BienLais" EntityType="Self.BienLai" />
           <EntitySet Name="DiemDanhs" EntityType="Self.DiemDanh" />
           <EntitySet Name="GiaoViens" EntityType="Self.GiaoVien" />
           <EntitySet Name="HeHocs" EntityType="Self.HeHoc" />
           <EntitySet Name="HocSinhs" EntityType="Self.HocSinh" />
           <EntitySet Name="Lops" EntityType="Self.Lop" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
-          <AssociationSet Name="FK_BienLai_HocSinh" Association="Self.FK_BienLai_HocSinh">
-            <End Role="HocSinh" EntitySet="HocSinhs" />
-            <End Role="BienLai" EntitySet="BienLais" />
-          </AssociationSet>
           <AssociationSet Name="FK_DiemDanh_HocSinh" Association="Self.FK_DiemDanh_HocSinh">
             <End Role="HocSinh" EntitySet="HocSinhs" />
             <End Role="DiemDanh" EntitySet="DiemDanhs" />
@@ -400,7 +371,36 @@
             <End Role="Lop" EntitySet="Lops" />
             <End Role="HocSinh" EntitySet="HocSinhs" />
           </AssociationSet>
+          <EntitySet Name="BienLais" EntityType="HocPhiModel.BienLai" />
+          <AssociationSet Name="FK_BienLai_HocSinh" Association="HocPhiModel.FK_BienLai_HocSinh">
+            <End Role="HocSinh" EntitySet="HocSinhs" />
+            <End Role="BienLai" EntitySet="BienLais" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="BienLai">
+          <Key>
+            <PropertyRef Name="MaBienLai" />
+          </Key>
+          <Property Name="MaBienLai" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MaHocSinh" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TongCong" Type="Double" />
+          <Property Name="NgayNop" Type="DateTime" Precision="0" />
+          <Property Name="NguoiNop" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TienAn" Type="Double" />
+          <NavigationProperty Name="HocSinh" Relationship="HocPhiModel.FK_BienLai_HocSinh" FromRole="BienLai" ToRole="HocSinh" />
+        </EntityType>
+        <Association Name="FK_BienLai_HocSinh">
+          <End Type="HocPhiModel.HocSinh" Role="HocSinh" Multiplicity="0..1" />
+          <End Type="HocPhiModel.BienLai" Role="BienLai" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HocSinh">
+              <PropertyRef Name="MaHocSinh" />
+            </Principal>
+            <Dependent Role="BienLai">
+              <PropertyRef Name="MaHocSinh" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -415,18 +415,6 @@
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="TenAdmin" ColumnName="TenAdmin" />
                 <ScalarProperty Name="HinhAnh" ColumnName="HinhAnh" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="BienLais">
-            <EntityTypeMapping TypeName="HocPhiModel.BienLai">
-              <MappingFragment StoreEntitySet="BienLai">
-                <ScalarProperty Name="MaBienLai" ColumnName="MaBienLai" />
-                <ScalarProperty Name="MaHocSinh" ColumnName="MaHocSinh" />
-                <ScalarProperty Name="TongCong" ColumnName="TongCong" />
-                <ScalarProperty Name="TinhTrang" ColumnName="TinhTrang" />
-                <ScalarProperty Name="NgayNop" ColumnName="NgayNop" />
-                <ScalarProperty Name="NguoiNop" ColumnName="NguoiNop" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -495,6 +483,18 @@
                 <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
                 <ScalarProperty Name="version" ColumnName="version" />
                 <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BienLais">
+            <EntityTypeMapping TypeName="HocPhiModel.BienLai">
+              <MappingFragment StoreEntitySet="BienLai">
+                <ScalarProperty Name="TienAn" ColumnName="TienAn" />
+                <ScalarProperty Name="NguoiNop" ColumnName="NguoiNop" />
+                <ScalarProperty Name="NgayNop" ColumnName="NgayNop" />
+                <ScalarProperty Name="TongCong" ColumnName="TongCong" />
+                <ScalarProperty Name="MaHocSinh" ColumnName="MaHocSinh" />
+                <ScalarProperty Name="MaBienLai" ColumnName="MaBienLai" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

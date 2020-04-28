@@ -352,6 +352,9 @@
     <Content Include="Areas\Admin\Views\Admin\LayDanhSachDiemDanh.cshtml" />
     <Content Include="Areas\Admin\Views\ThongKe\Index.cshtml" />
     <Content Include="Areas\Admin\Views\ThongKe\LichSuDiemDanh.cshtml" />
+    <Content Include="Areas\Admin\Views\Example.cshtml" />
+    <Content Include="Areas\Admin\Views\Admin\BienLai.cshtml" />
+    <Content Include="Areas\Admin\Views\Admin\ThemBienLai.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

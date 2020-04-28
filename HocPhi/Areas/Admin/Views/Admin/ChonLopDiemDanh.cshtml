@@ -5,7 +5,7 @@
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Chọn Lớp điểm Danh</h2>
+<h2>Chọn Lớp Điểm Danh</h2>
 @using (Html.BeginForm("LayDanhSachDiemDanh", "Admin", FormMethod.Post))
 { 
 @Html.DropDownList("ddl", Model.Select(item => new SelectListItem

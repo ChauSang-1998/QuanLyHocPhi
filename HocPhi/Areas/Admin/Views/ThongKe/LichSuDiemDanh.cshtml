@@ -8,22 +8,22 @@
     <table class="table">
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.TenHocSinh)
+                Tên Học Sinh
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.GioiTinh)
+                Giới Tính
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.NamSinh)
+                Năm Sinh 
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.TenPhuHuynh)
+              Tên Phụ Huynh
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.DienThoai)
+                Điện Thoại
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.DiaChiLienHe)
+                Địa Chỉ 
             </th>
             <th>
                 Điểm Danh
@@ -41,31 +41,33 @@
             {
                 _trangthai = false;
             }
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.TenHocSinh)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.GioiTinh)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.NamSinh)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.TenPhuHuynh)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DienThoai)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DiaChiLienHe)
-                </td>
-                <td>
-                    @Html.CheckBoxFor(modelItem => _trangthai, htmlAttributes: new { @class = "statusDiemDanh" })
-                </td>
-                @Html.HiddenFor(modeItem => item.MaHocSinh, htmlAttributes: new { @class = "MaCuaHS" })
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.TenHocSinh)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GioiTinh)
+            </td>
+            
+            <td> @Convert.ToDateTime(item.NamSinh).ToString("dd/MM/yyyy")</td>
 
-            </tr>
+            
+            
+            <td>
+                @Html.DisplayFor(modelItem => item.TenPhuHuynh)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DienThoai)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DiaChiLienHe)
+            </td>
+            <td>
+                @Html.CheckBoxFor(modelItem => _trangthai, htmlAttributes: new { @class = "statusDiemDanh" })
+            </td>
+            @Html.HiddenFor(modeItem => item.MaHocSinh, htmlAttributes: new { @class = "MaCuaHS" })
+
+        </tr>
         }
 
  </table>

@@ -175,11 +175,30 @@
 
 
                             <li>
-                                <a href="@Url.Action("ChonLopDiemDanh","Admin")">
-                                    <i class="metismenu-icon fas fa-utensil-spoon"></i>
+                                <a href="#">
+                                    <i class="metismenu-icon fas fa-clipboard-check"></i>
                                     Điểm Danh
                                 </a>
-
+                                <ul>
+                                    <li>
+                                        <a href="@Url.Action("ChonLopDiemDanh","Admin")">
+                                            <i class="metismenu-icon">
+                                            </i>Chọn Lớp Điểm Danh
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="@Url.Action("Index","ThongKe")">
+                                            <i class="metismenu-icon">
+                                            </i>Thống Kê Điểm Danh
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("BienLai","Admin")">
+                                    <i class="metismenu-icon fas fa-money-bill"></i>
+                                    Quản Lý Biên Lai
+                                </a>
                             </li>
 
                         </ul>

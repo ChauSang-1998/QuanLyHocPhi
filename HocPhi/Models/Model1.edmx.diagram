@@ -6,19 +6,19 @@
     <edmx:Diagrams>
       <Diagram DiagramId="bc37054643a246c185bc47539ca061f7" Name="Diagram1">
         <EntityTypeShape EntityType="HocPhiModel.Admin" Width="1.5" PointX="0.75" PointY="1.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="HocPhiModel.BienLai" Width="1.5" PointX="5.25" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="HocPhiModel.DiemDanh" Width="1.5" PointX="5.25" PointY="8.875" IsExpanded="true" />
         <EntityTypeShape EntityType="HocPhiModel.GiaoVien" Width="1.5" PointX="3.75" PointY="12.25" IsExpanded="true" />
         <EntityTypeShape EntityType="HocPhiModel.HeHoc" Width="1.5" PointX="0.75" PointY="5.125" IsExpanded="true" />
         <EntityTypeShape EntityType="HocPhiModel.HocSinh" Width="1.5" PointX="3" PointY="4.375" IsExpanded="true" />
         <EntityTypeShape EntityType="HocPhiModel.Lop" Width="1.5" PointX="6" PointY="4.875" IsExpanded="true" />
         <EntityTypeShape EntityType="HocPhiModel.sysdiagram" Width="1.5" PointX="7.75" PointY="1.5" IsExpanded="true" />
-        <AssociationConnector Association="HocPhiModel.FK_BienLai_HocSinh" ManuallyRouted="false" />
         <AssociationConnector Association="HocPhiModel.FK_DiemDanh_HocSinh" ManuallyRouted="false" />
         <AssociationConnector Association="HocPhiModel.FK_Lop_GiaoVien" ManuallyRouted="false" />
         <AssociationConnector Association="HocPhiModel.FK_HocSinh_HeHoc" ManuallyRouted="false" />
         <AssociationConnector Association="HocPhiModel.FK_Lop_HeHoc" ManuallyRouted="false" />
         <AssociationConnector Association="HocPhiModel.FK_HocSinh_Lop" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="HocPhiModel.BienLai" Width="1.5" PointX="5.25" PointY="1" />
+        <AssociationConnector Association="HocPhiModel.FK_BienLai_HocSinh" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
