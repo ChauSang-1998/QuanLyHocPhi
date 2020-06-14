@@ -24,22 +24,22 @@
                     </div>
                     <div class="card-body card-block">
                         <div class="form-group">
-                            <label for="inputEmail4">Mã Giáo Viên </label>
+                            <label for="inputEmail4">Mã Giáo Viên <span style="color:#ff0000">*</span></label>
                             @Html.EditorFor(model => model.MaGiaoVien, new { htmlAttributes = new { @class = "form-control" } })
                             @Html.ValidationMessageFor(model => model.MaGiaoVien, "", new { @class = "text-danger" })
                         </div>
                         <div class="form-group ">
-                            <label for="inputPassword4">Tên Giáo Viên</label>
+                            <label for="inputPassword4">Tên Giáo Viên <span style="color:#ff0000">*</span></label>
                             @Html.EditorFor(model => model.TenGiaoVien, new { htmlAttributes = new { @class = "form-control" } })
                             @Html.ValidationMessageFor(model => model.TenGiaoVien, "", new { @class = "text-danger" })
                         </div>
                         <div class="form-group ">
-                            <label for="inputEmail4">Điện Thoại</label>
+                            <label for="inputEmail4">Điện Thoại <span style="color:#ff0000">*</span></label>
                             @Html.EditorFor(model => model.DienThoai, new { htmlAttributes = new { @class = "form-control" } })
                             @Html.ValidationMessageFor(model => model.DienThoai, "", new { @class = "text-danger" })
                         </div>
                         <div class="form-group ">
-                            <label for="inputPassword4">Địa Chỉ</label>
+                            <label for="inputPassword4">Địa Chỉ <span style="color:#ff0000">*</span></label>
                             @Html.EditorFor(model => model.DiaChi, new { htmlAttributes = new { @class = "form-control" } })
                             @Html.ValidationMessageFor(model => model.DiaChi, "", new { @class = "text-danger" })
                         </div>

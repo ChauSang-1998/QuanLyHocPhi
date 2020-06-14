@@ -19,6 +19,7 @@ namespace HocPhi
             Session["Admin"] = null;
             Session["AdHinh"] = null;
             Session["dangnhap"] = null;
+            Session["ID"] = null;
         }
     }
 }

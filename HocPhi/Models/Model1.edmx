@@ -19,12 +19,14 @@
           <Key>
             <PropertyRef Name="MaBienLai" />
           </Key>
-          <Property Name="MaBienLai" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="MaBienLai" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="MaHocSinh" Type="nvarchar" MaxLength="50" />
           <Property Name="TongCong" Type="float" />
           <Property Name="NgayNop" Type="date" />
           <Property Name="NguoiNop" Type="nvarchar" MaxLength="50" />
-          <Property Name="TienAn" Type="float" />
+          <Property Name="TienAn1ngay" Type="float" />
+          <Property Name="TienAn1thang" Type="float" />
+          <Property Name="TrangThai" Type="bit" />
         </EntityType>
         <EntityType Name="DiemDanh">
           <Key>
@@ -77,7 +79,9 @@
           <Property Name="MaHeHoc" Type="nvarchar" MaxLength="50" />
           <Property Name="SoLuong" Type="int" />
           <Property Name="MaGiaoVien" Type="nvarchar" MaxLength="50" />
+          <Property Name="NgayBatDau" Type="date" />
           <Property Name="GhiChu" Type="nvarchar(max)" />
+          <Property Name="MaGiaoVien1" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -149,6 +153,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Lop_GiaoVien1">
+          <End Role="GiaoVien" Type="Self.GiaoVien" Multiplicity="0..1" />
+          <End Role="Lop" Type="Self.Lop" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GiaoVien">
+              <PropertyRef Name="MaGiaoVien" />
+            </Principal>
+            <Dependent Role="Lop">
+              <PropertyRef Name="MaGiaoVien1" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Lop_HeHoc">
           <End Role="HeHoc" Type="Self.HeHoc" Multiplicity="0..1" />
           <End Role="Lop" Type="Self.Lop" Multiplicity="*" />
@@ -190,6 +206,10 @@
             <End Role="GiaoVien" EntitySet="GiaoVien" />
             <End Role="Lop" EntitySet="Lop" />
           </AssociationSet>
+          <AssociationSet Name="FK_Lop_GiaoVien1" Association="Self.FK_Lop_GiaoVien1">
+            <End Role="GiaoVien" EntitySet="GiaoVien" />
+            <End Role="Lop" EntitySet="Lop" />
+          </AssociationSet>
           <AssociationSet Name="FK_Lop_HeHoc" Association="Self.FK_Lop_HeHoc">
             <End Role="HeHoc" EntitySet="HeHoc" />
             <End Role="Lop" EntitySet="Lop" />
@@ -228,6 +248,9 @@
           <Property Name="DienThoai" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <Property Name="DiaChi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Lops" Relationship="Self.FK_Lop_GiaoVien" FromRole="GiaoVien" ToRole="Lop" />
+          <NavigationProperty Name="Lops1" Relationship="HocPhiModel.FK_Lop_GiaoVien1" FromRole="GiaoVien" ToRole="Lop" />
+          <NavigationProperty Name="Lops2" Relationship="HocPhiModel.FK_Lop_GiaoVien2" FromRole="GiaoVien" ToRole="Lop" />
+          <NavigationProperty Name="Lops11" Relationship="HocPhiModel.FK_Lop_GiaoVien11" FromRole="GiaoVien" ToRole="Lop" />
         </EntityType>
         <EntityType Name="HeHoc">
           <Key>
@@ -267,11 +290,16 @@
           <Property Name="TenLop" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="MaHeHoc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="SoLuong" Type="Int32" />
-          <Property Name="MaGiaoVien" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MaGiaoVien" MaxLength="50" FixedLength="false" Unicode="true" Type="String" />
           <Property Name="GhiChu" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="GiaoVien" Relationship="Self.FK_Lop_GiaoVien" FromRole="Lop" ToRole="GiaoVien" />
           <NavigationProperty Name="HeHoc" Relationship="Self.FK_Lop_HeHoc" FromRole="Lop" ToRole="HeHoc" />
           <NavigationProperty Name="HocSinhs" Relationship="Self.FK_HocSinh_Lop" FromRole="Lop" ToRole="HocSinh" />
+          <Property Name="NgayBatDau" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="GiaoVien1" Relationship="HocPhiModel.FK_Lop_GiaoVien1" FromRole="Lop" ToRole="GiaoVien" />
+          <Property Name="MaGiaoVien1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="GiaoVien2" Relationship="HocPhiModel.FK_Lop_GiaoVien2" FromRole="Lop" ToRole="GiaoVien" />
+          <NavigationProperty Name="GiaoVien11" Relationship="HocPhiModel.FK_Lop_GiaoVien11" FromRole="Lop" ToRole="GiaoVien" />
         </EntityType>
         <EntityType Name="sysdiagram">
           <Key>
@@ -376,18 +404,32 @@
             <End Role="HocSinh" EntitySet="HocSinhs" />
             <End Role="BienLai" EntitySet="BienLais" />
           </AssociationSet>
+          <AssociationSet Name="FK_Lop_GiaoVien1" Association="HocPhiModel.FK_Lop_GiaoVien1">
+            <End Role="GiaoVien" EntitySet="GiaoViens" />
+            <End Role="Lop" EntitySet="Lops" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Lop_GiaoVien2" Association="HocPhiModel.FK_Lop_GiaoVien2">
+            <End Role="GiaoVien" EntitySet="GiaoViens" />
+            <End Role="Lop" EntitySet="Lops" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Lop_GiaoVien11" Association="HocPhiModel.FK_Lop_GiaoVien11">
+            <End Role="GiaoVien" EntitySet="GiaoViens" />
+            <End Role="Lop" EntitySet="Lops" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="BienLai">
           <Key>
             <PropertyRef Name="MaBienLai" />
           </Key>
-          <Property Name="MaBienLai" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MaBienLai" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="MaHocSinh" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="TongCong" Type="Double" />
           <Property Name="NgayNop" Type="DateTime" Precision="0" />
           <Property Name="NguoiNop" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="TienAn" Type="Double" />
+          <Property Name="TienAn1ngay" Type="Double" />
+          <Property Name="TienAn1thang" Type="Double" />
           <NavigationProperty Name="HocSinh" Relationship="HocPhiModel.FK_BienLai_HocSinh" FromRole="BienLai" ToRole="HocSinh" />
+          <Property Name="TrangThai" Type="Boolean" />
         </EntityType>
         <Association Name="FK_BienLai_HocSinh">
           <End Type="HocPhiModel.HocSinh" Role="HocSinh" Multiplicity="0..1" />
@@ -398,6 +440,42 @@
             </Principal>
             <Dependent Role="BienLai">
               <PropertyRef Name="MaHocSinh" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Lop_GiaoVien1">
+          <End Type="HocPhiModel.GiaoVien" Role="GiaoVien" Multiplicity="0..1" />
+          <End Type="HocPhiModel.Lop" Role="Lop" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GiaoVien">
+              <PropertyRef Name="MaGiaoVien" />
+            </Principal>
+            <Dependent Role="Lop">
+              <PropertyRef Name="MaGiaoVien" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Lop_GiaoVien2">
+          <End Type="HocPhiModel.GiaoVien" Role="GiaoVien" Multiplicity="0..1" />
+          <End Type="HocPhiModel.Lop" Role="Lop" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GiaoVien">
+              <PropertyRef Name="MaGiaoVien" />
+            </Principal>
+            <Dependent Role="Lop">
+              <PropertyRef Name="MaGiaoVien" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Lop_GiaoVien11">
+          <End Type="HocPhiModel.GiaoVien" Role="GiaoVien" Multiplicity="0..1" />
+          <End Type="HocPhiModel.Lop" Role="Lop" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GiaoVien">
+              <PropertyRef Name="MaGiaoVien" />
+            </Principal>
+            <Dependent Role="Lop">
+              <PropertyRef Name="MaGiaoVien1" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -466,6 +544,8 @@
           <EntitySetMapping Name="Lops">
             <EntityTypeMapping TypeName="HocPhiModel.Lop">
               <MappingFragment StoreEntitySet="Lop">
+                <ScalarProperty Name="MaGiaoVien1" ColumnName="MaGiaoVien1" />
+                <ScalarProperty Name="NgayBatDau" ColumnName="NgayBatDau" />
                 <ScalarProperty Name="MaLop" ColumnName="MaLop" />
                 <ScalarProperty Name="TenLop" ColumnName="TenLop" />
                 <ScalarProperty Name="MaHeHoc" ColumnName="MaHeHoc" />
@@ -489,7 +569,9 @@
           <EntitySetMapping Name="BienLais">
             <EntityTypeMapping TypeName="HocPhiModel.BienLai">
               <MappingFragment StoreEntitySet="BienLai">
-                <ScalarProperty Name="TienAn" ColumnName="TienAn" />
+                <ScalarProperty Name="TrangThai" ColumnName="TrangThai" />
+                <ScalarProperty Name="TienAn1thang" ColumnName="TienAn1thang" />
+                <ScalarProperty Name="TienAn1ngay" ColumnName="TienAn1ngay" />
                 <ScalarProperty Name="NguoiNop" ColumnName="NguoiNop" />
                 <ScalarProperty Name="NgayNop" ColumnName="NgayNop" />
                 <ScalarProperty Name="TongCong" ColumnName="TongCong" />

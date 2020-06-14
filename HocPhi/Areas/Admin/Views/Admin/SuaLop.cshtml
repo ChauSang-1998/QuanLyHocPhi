@@ -38,16 +38,26 @@
                             @Html.EditorFor(model => model.MaHeHoc, new { htmlAttributes = new { @class = "form-control" } })
                             @Html.ValidationMessageFor(model => model.MaHeHoc, "", new { @class = "text-danger" })
                         </div>
-                        
+
                         <div class="form-group ">
                             <label for="inputEmail4">Số Lượng</label>
                             @Html.EditorFor(model => model.SoLuong, new { htmlAttributes = new { @class = "form-control" } })
                             @Html.ValidationMessageFor(model => model.SoLuong, "", new { @class = "text-danger" })
                         </div>
                         <div class="form-group ">
-                            <label for="inputEmail4">Mã Giáo Viên</label>
+                            <label for="inputEmail4">Mã Giáo Viên 1</label>
                             @Html.DropDownList("MaGiaoVien", (IEnumerable<SelectListItem>)ViewBag.Ma_GV, "---Chọn---", new { @class = "form-control" })
                             @Html.ValidationMessageFor(model => model.GiaoVien.MaGiaoVien, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group ">
+                            <label for="inputEmail4">Mã Giáo Viên 2</label>
+                            @Html.DropDownList("MaGiaoVien1", (IEnumerable<SelectListItem>)ViewBag.Ma_GV, "---Chọn---", new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.GiaoVien.MaGiaoVien, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group ">
+                            <label for="inputEmail4">Ngày Bắt Đầu</label>
+                            @Html.TextBoxFor(model => model.NgayBatDau, new { type = "date", @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.NgayBatDau, "", new { @class = "text-danger" })
                         </div>
                         <div class="form-group ">
                             <label for="inputPassword4">Ghi Chú</label>

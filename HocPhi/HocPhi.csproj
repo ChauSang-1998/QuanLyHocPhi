@@ -113,6 +113,8 @@
     <Content Include="Content\assets\images\avatars\9.jpg" />
     <Content Include="Content\assets\images\logo-inverse.png" />
     <Content Include="Content\assets\images\logo.png" />
+    <Content Include="Content\assets\images\LOGOSCHOOL.png" />
+    <Content Include="Content\assets\images\school.png" />
     <Content Include="Content\assets\scripts\main.js" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
@@ -196,6 +198,7 @@
     <Content Include="fonts\poppins\poppins-v5-latin-italic.svg" />
     <Content Include="fonts\poppins\poppins-v5-latin-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="img\LOGO.PNG" />
     <Content Include="Models\Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Model1.edmx</DependentUpon>
@@ -355,6 +358,12 @@
     <Content Include="Areas\Admin\Views\Example.cshtml" />
     <Content Include="Areas\Admin\Views\Admin\BienLai.cshtml" />
     <Content Include="Areas\Admin\Views\Admin\ThemBienLai.cshtml" />
+    <Content Include="Areas\Admin\Views\ThongKe\ThongKeBienLai.cshtml" />
+    <Content Include="Areas\Admin\Views\ThongKe\KQ.cshtml" />
+    <Content Include="Areas\Admin\Views\Admin\SuaBienLai.cshtml" />
+    <Content Include="Areas\Admin\Views\Admin\PhieuThu.cshtml" />
+    <Content Include="Areas\Admin\Views\ThongKe\ThongKeDoanhThu.cshtml" />
+    <Content Include="Areas\Admin\Views\ThongKe\DoanhThu.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -389,6 +398,7 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\DiemDanhViewModel.cs" />
+    <Compile Include="Models\displayAttribute.cs" />
     <Compile Include="Models\GiaoVien.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>

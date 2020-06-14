@@ -24,28 +24,31 @@
                     </div>
                     <div class="card-body card-block">
                         <div class="form-group ">
-                            <label for="inputPassword4">Mã Học Sinh</label>
+                            <label for="inputPassword4">Mã Học Sinh <span style="color:#ff0000">*</span></label>
                             @Html.EditorFor(model => model.MaHocSinh, new { htmlAttributes = new { @class = "form-control" } })
                             @Html.ValidationMessageFor(model => model.MaHocSinh, "", new { @class = "text-danger" })
                         </div>
                         <div class="form-group ">
-                            <label for="inputEmail4">Tên Học Sinh</label>
+                            <label for="inputEmail4">Tên Học Sinh<span style="color:#ff0000">*</span></label>
                             @Html.EditorFor(model => model.TenHocSinh, new { htmlAttributes = new { @class = "form-control" } })
                             @Html.ValidationMessageFor(model => model.TenHocSinh, "", new { @class = "text-danger" })
                         </div>
 
                         <div class="form-group">
-                            <label for="inputEmail4">Giới Tính </label>
-                            @Html.EditorFor(model => model.GioiTinh, new { htmlAttributes = new { @class = "form-control" } })
+                            <label for="inputEmail4">Giới Tính <span style="color:#ff0000">*</span></label>
+                            <div class="form-check">
+                                <span>Nam</span> @Html.RadioButtonFor(m => m.GioiTinh, "Nam")
+                                <span>Nữ</span>@Html.RadioButtonFor(m => m.GioiTinh, "Nữ")
+                            </div>
                             @Html.ValidationMessageFor(model => model.GioiTinh, "", new { @class = "text-danger" })
                         </div>
                         <div class="form-group ">
-                            <label for="inputPassword4">Năm Sinh</label>
+                            <label for="inputPassword4">Năm Sinh <span style="color:#ff0000">*</span></label>
                             @Html.TextBoxFor(model => model.NamSinh, new { type = "date", @class = "form-control" })
                             @Html.ValidationMessageFor(model => model.NamSinh, "", new { @class = "text-danger" })
                         </div>
                         <div class="form-group">
-                            <label for="inputEmail4">Mã Hệ Học </label>
+                            <label for="inputEmail4">Mã Hệ Học <span style="color:#ff0000">*</span></label>
                             @*@Html.DropDownList("MaHeHoc", (IEnumerable<SelectListItem>)ViewBag.HeHoc_MHH, "---Chọn---", new { @class = "form-control" })*@
                             @if (ViewBag.HeHoc_MHH != null)
                             {
@@ -55,13 +58,13 @@
                             @Html.ValidationMessageFor(model => model.MaHeHoc, "", new { @class = "text-danger" })
                         </div>
                         <div class="form-group">
-                            <label for="inputEmail4">Mã Lớp Học </label>
+                            <label for="inputEmail4">Mã Lớp Học <span style="color:#ff0000">*</span></label>
                             @Html.DropDownList("MaLop", (IEnumerable<SelectListItem>)ViewBag.Lop_MaL, "---Chọn---", new { @class = "form-control" })
                             @Html.ValidationMessageFor(model => model.MaLop, "", new { @class = "text-danger" })
                         </div>
 
                         <div class="form-group ">
-                            <label for="inputPassword4">Tên Phụ Huynh</label>
+                            <label for="inputPassword4">Tên Phụ Huynh <span style="color:#ff0000">*</span></label>
                             @Html.EditorFor(model => model.TenPhuHuynh, new { htmlAttributes = new { @class = "form-control" } })
                             @Html.ValidationMessageFor(model => model.TenPhuHuynh, "", new { @class = "text-danger" })
                         </div>
@@ -71,13 +74,13 @@
                             @Html.ValidationMessageFor(model => model.DienThoai, "", new { @class = "text-danger" })
                         </div>
                         <div class="form-group ">
-                            <label for="inputPassword4">Địa Chỉ</label>
+                            <label for="inputPassword4">Địa Chỉ <span style="color:#ff0000">*</span></label>
                             @Html.EditorFor(model => model.DiaChiLienHe, new { htmlAttributes = new { @class = "form-control" } })
                             @Html.ValidationMessageFor(model => model.DiaChiLienHe, "", new { @class = "text-danger" })
                         </div>
 
                         <div class="form-group">
-                            <label for="inputEmail4">Ngày Đăng Ký </label>
+                            <label for="inputEmail4">Ngày Đăng Ký <span style="color:#ff0000">*</span></label>
                             @Html.TextBoxFor(model => model.NgayDangKy, new { type = "date", @class = "form-control" })
                             @Html.ValidationMessageFor(model => model.NgayDangKy, "", new { @class = "text-danger" })
                         </div>

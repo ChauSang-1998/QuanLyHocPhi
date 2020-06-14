@@ -11,6 +11,7 @@ using Dapper;
 using HocPhi.Common;
 
 using System.Data.Entity;
+using System.IO;
 
 namespace HocPhi.Areas.Admin.Controllers
 {
@@ -18,36 +19,57 @@ namespace HocPhi.Areas.Admin.Controllers
     public class AdminController : Controller
     {
         HocPhiEntities db = new HocPhiEntities();
+        private object item;
+
         // GET: Admin/Admin
         public ActionResult Index()
         {
+            var tsHeHoc = db.HeHocs.OrderByDescending(m => m.MaHeHoc);
+            ViewBag.tsHeHoc = tsHeHoc.Count();
+
+            var tsGV = db.GiaoViens.OrderByDescending(m => m.MaGiaoVien);
+            ViewBag.tsGV = tsGV.Count();
+
+            var tsLH = db.Lops.OrderByDescending(m => m.MaLop);
+            ViewBag.tsLH = tsLH.Count();
+
+            var tsHS = db.HocSinhs.OrderByDescending(m => m.MaHocSinh);
+            ViewBag.tsHS = tsHS.Count();
+
+            var tsBL = db.BienLais.OrderByDescending(m => m.MaBienLai);
+            ViewBag.tsBL = tsBL.Count();
+
+
             return View();
         }
-        public ActionResult Inde1x()
-        {
-            return View();
-        }
+       
 
         public ActionResult HeHoc()
         {
-            var hehoc = db.HeHocs.ToList();
-
+            if (Session["ID"] == null || Session["ID"].ToString() == " ")
+            {
+                return Redirect("/Home/Login");
+            }
+            var hehoc = db.HeHocs.ToList();      
             return View(hehoc);
         }
         [HttpGet]
         public ActionResult ThemHeHoc()
         {
-
+        
             return View();
         }
 
-        [HttpPost]
+        [HttpPost]  
         public ActionResult ThemHeHoc(HeHoc hehoc)
         {
-
-            db.HeHocs.Add(hehoc);
-            db.SaveChanges();
-            return RedirectToAction("HeHoc");
+            if (ModelState.IsValid)
+            {
+                db.HeHocs.Add(hehoc);
+                db.SaveChanges();
+                return RedirectToAction("HeHoc");
+            }
+            return View();
         }
         [HttpGet]
         public ActionResult SuaHeHoc(string mahehoc)
@@ -55,7 +77,6 @@ namespace HocPhi.Areas.Admin.Controllers
             HeHoc hehoc = db.HeHocs.SingleOrDefault(n => n.MaHeHoc == mahehoc);
             return View(hehoc);
         }
-
         [HttpPost]
         public ActionResult SuaHeHoc(HeHoc hehoc)
         {
@@ -72,6 +93,10 @@ namespace HocPhi.Areas.Admin.Controllers
         }
         public ActionResult HocSinh()
         {
+            if (Session["ID"] == null || Session["ID"].ToString() == " ")
+            {
+                return Redirect("/Home/Login");
+            }
             var hocsinh = db.HocSinhs.ToList();
 
             return View(hocsinh);
@@ -89,10 +114,13 @@ namespace HocPhi.Areas.Admin.Controllers
         {
             ViewBag.HeHoc_MHH = new SelectList(db.HeHocs.ToList().OrderBy(n => n.MaHeHoc), "MaHeHoc", "MaHeHoc");
             ViewBag.Lop_MaL = new SelectList(db.Lops.ToList().OrderBy(n => n.MaLop), "MaLop", "MaLop");
-
-            db.HocSinhs.Add(hocsinh);
-            db.SaveChanges();
-            return RedirectToAction("HocSinh");
+            if (ModelState.IsValid)
+            {
+                db.HocSinhs.Add(hocsinh);
+                db.SaveChanges();
+                return RedirectToAction("HocSinh");
+            }
+            return View();
         }
         [HttpGet]
         public ActionResult SuaHocSinh(string mahocsinh)
@@ -118,7 +146,12 @@ namespace HocPhi.Areas.Admin.Controllers
 
         public ActionResult Lop()
         {
+            if (Session["ID"] == null || Session["ID"].ToString() == " ")
+            {
+                return Redirect("/Home/Login");
+            }
             var lop = db.Lops.ToList();
+            
             ViewBag.Lop_MaL = new SelectList(db.Lops.ToList().OrderBy(n => n.MaLop), "MaLop", "MaLop");
             return View(lop);
 
@@ -156,6 +189,7 @@ namespace HocPhi.Areas.Admin.Controllers
         {
 
             ViewBag.Ma_GV = new SelectList(db.GiaoViens.ToList().OrderBy(n => n.MaGiaoVien), "MaGiaoVien", "MaGiaoVien");
+            ViewBag.Ma_GV1 = new SelectList(db.GiaoViens.ToList().OrderBy(n => n.MaGiaoVien), "MaGiaoVien1", "MaGiaoVien1");
 
             ViewBag.HeHoc_MHH = new SelectList(db.HeHocs.ToList().OrderBy(n => n.MaHeHoc), "MaHeHoc", "MaHeHoc");
             return View();
@@ -164,11 +198,16 @@ namespace HocPhi.Areas.Admin.Controllers
         public ActionResult ThemLop(Lop lop)
         {
             ViewBag.Ma_GV = new SelectList(db.GiaoViens.ToList().OrderBy(n => n.MaGiaoVien), "MaGiaoVien", "MaGiaoVien");
+            ViewBag.Ma_GV1 = new SelectList(db.GiaoViens.ToList().OrderBy(n => n.MaGiaoVien), "MaGiaoVien1", "MaGiaoVien1");
 
             ViewBag.HeHoc_MHH = new SelectList(db.HeHocs.ToList().OrderBy(n => n.MaHeHoc), "MaHeHoc", "MaHeHoc");
-            db.Lops.Add(lop);
-            db.SaveChanges();
-            return RedirectToAction("Lop");
+            if (ModelState.IsValid)
+            {
+                db.Lops.Add(lop);
+                db.SaveChanges();
+                return RedirectToAction("Lop");
+            }
+            return View();
         }
         [HttpGet]
         public ActionResult SuaLop(string malop)
@@ -197,6 +236,10 @@ namespace HocPhi.Areas.Admin.Controllers
         }
         public ActionResult DiemDanh()
         {
+            if (Session["ID"] == null || Session["ID"].ToString() == " ")
+            {
+                return Redirect("/Home/Login");
+            }
             return View();
         }
         public ActionResult exit()
@@ -206,6 +249,10 @@ namespace HocPhi.Areas.Admin.Controllers
         }
         public ActionResult GiaoVien()
         {
+            if (Session["ID"] == null || Session["ID"].ToString() == " ")
+            {
+                return Redirect("/Home/Login");
+            }
             var gv = db.GiaoViens.ToList();
             return View(gv);
         }
@@ -217,10 +264,13 @@ namespace HocPhi.Areas.Admin.Controllers
         [HttpPost]
         public ActionResult ThemGiaoVien(GiaoVien gv)
         {
-
-            db.GiaoViens.Add(gv);
-            db.SaveChanges();
-            return RedirectToAction("GiaoVien");
+            if (ModelState.IsValid)
+            {
+                db.GiaoViens.Add(gv);
+                db.SaveChanges();
+                return RedirectToAction("GiaoVien");
+            }
+            return View();
         }
         [HttpGet]
         public ActionResult SuaGiaoVien(string magiaovien)
@@ -246,6 +296,10 @@ namespace HocPhi.Areas.Admin.Controllers
         [HttpGet]
         public ActionResult ChonLopDiemDanh()
         {
+            if (Session["ID"] == null || Session["ID"].ToString() == " ")
+            {
+                return Redirect("/Home/Login");
+            }
             using (HocPhiEntities context = new HocPhiEntities())
             {
                 var dsLop = (from lop in context.Lops
@@ -356,9 +410,14 @@ namespace HocPhi.Areas.Admin.Controllers
         }
         public ActionResult BienLai()
         {
+            if (Session["ID"] == null || Session["ID"].ToString() == " ")
+            {
+                return Redirect("/Home/Login");
+            }
             var blai = db.BienLais.ToList();
-            TempData["Tienan"] = "50000";          
-            return View(blai);
+            ViewBag.bienlai = blai;
+          
+            return View();
         }
         [HttpGet]
         public ActionResult ThemBienLai()
@@ -369,17 +428,63 @@ namespace HocPhi.Areas.Admin.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult ThemBienLai(BienLai BienLai)
+        public ActionResult ThemBienLai(BienLai BienLai, FormCollection form)
         {
             ViewBag.HeHoc_MHH = new SelectList(db.HeHocs.ToList().OrderBy(n => n.MaHeHoc), "MaHeHoc", "MaHeHoc");
             ViewBag.Ma_HS = new SelectList(db.HocSinhs.ToList().OrderBy(n => n.MaHocSinh), "MaHocSinh", "MaHocSinh");
 
+            
+            BienLai.MaHocSinh = form["txt_NewMaHocSinh"].ToString();
+        
+            BienLai.TienAn1ngay = Convert.ToInt32(form["txt_NewTienAn1ngay"]);
+            BienLai.NgayNop = Convert.ToDateTime(form["txt_NewNgayNop"]);
+            BienLai.TienAn1thang = Convert.ToDouble(BienLai.TienAn1ngay * 26);
+            BienLai.NguoiNop =form["txt_NewNguoiNop"];
+            BienLai.TrangThai = Convert.ToBoolean(form["txtTrangThai"]);
+           //  BienLai.TongCong = Convert.ToDouble(form["tong"]);
+            //BienLai.TongCong = 
             db.BienLais.Add(BienLai);
             db.SaveChanges();
             return RedirectToAction("BienLai");
-           
-        }
 
+        }
+        [HttpGet]
+        public ActionResult SuaBienLai(int mabienlai)
+        {
+
+
+            BienLai BienLai = db.BienLais.SingleOrDefault(n => n.MaBienLai == mabienlai);
+
+            return View(BienLai);
+
+        }
+        [HttpPost]
+        public ActionResult SuaBienLai(BienLai BienLai, FormCollection form)
+        {
+            ViewBag.HeHoc_MHH = new SelectList(db.HeHocs.ToList().OrderBy(n => n.MaHeHoc), "MaHeHoc", "MaHeHoc");
+            ViewBag.Ma_HS = new SelectList(db.HocSinhs.ToList().OrderBy(n => n.MaHocSinh), "MaHocSinh", "MaHocSinh");
+
+
+            BienLai.TienAn1ngay = Convert.ToInt32(form["txt_NewTienAn1ngay"]);
+            BienLai.NgayNop = Convert.ToDateTime(form["txt_NewNgayNop"]);
+            BienLai.TienAn1thang = Convert.ToDouble(BienLai.TienAn1ngay * 26);
+            BienLai.NguoiNop = form["txt_NewNguoiNop"];
+            BienLai.TrangThai = Convert.ToBoolean(form["txtTrangThai"]);
+            db.Entry(BienLai).State = System.Data.Entity.EntityState.Modified;
+            db.SaveChanges();
+            return RedirectToAction("BienLai");
+        }
+        [HttpGet]
+        public ActionResult PhieuThu(int mabienlai)
+        {
+            var blai = db.BienLais.Where(pr => pr.MaBienLai == mabienlai).ToList();
+            ViewBag.bienlai = blai;
+            return View();
+        }
+        private void @foreach(object var, object item, dynamic bienlai)
+        {
+            throw new NotImplementedException();
+        }
     }
     
 }

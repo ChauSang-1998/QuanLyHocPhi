@@ -1,7 +1,10 @@
-﻿@model IEnumerable<HocPhi.Models.BienLai>
+﻿@*@model IEnumerable<HocPhi.Models.BienLai>*@
+@using HocPhi.Models;
+
 @{
     ViewBag.Title = "BienLai";
     Layout = null;
+    bool _trangthai;
 }
 
 
@@ -40,7 +43,7 @@
     <div class="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
         <div class="app-header header-shadow">
             <div class="app-header__logo">
-                <div class="logo-src"></div>
+                <img src="~/Content/assets/images/school.png" />
                 <div class="header__pane ml-auto">
                     <div>
                         <button type="button" class="hamburger close-sidebar-btn hamburger--elastic" data-class="closed-sidebar">
@@ -149,7 +152,7 @@
                             </li>
                             <li class="app-sidebar__heading">Quản Lý</li>
                             <li>
-                                <a href="@Url.Action("HeHoc","Admin")" class="mm-active">
+                                <a href="@Url.Action("HeHoc","Admin")" >
                                     <i class="metismenu-icon fas fa-school"></i>
                                     Quản Lý Hệ Học
                                 </a>
@@ -195,9 +198,15 @@
                                 </ul>
                             </li>
                             <li>
-                                <a href="@Url.Action("BienLai","Admin")">
+                                <a href="@Url.Action("BienLai","Admin")" class="mm-active">
                                     <i class="metismenu-icon fas fa-money-bill"></i>
                                     Quản Lý Biên Lai
+                                </a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("ThongKeDoanhThu","ThongKe")">
+                                    <i class="metismenu-icon fas fa-money-bill-wave-alt"></i>
+                                    Quản Lý Doanh Thu
                                 </a>
                             </li>
 
@@ -217,10 +226,10 @@
                             <a href="@Url.Action("ThemBienLai","Admin")" class="button"><span>Thêm </span> </a>
                             <style>
                                 .button {
-                                    border-radius: 32px;
-                                    background-color: #A8A8A8;
+                                  
+                                    background-color: #00ffff;
                                     border: none;
-                                    color: #FFFFFF;
+                                    color: #000000;
                                     text-align: center;
                                     font-weight: bold;
                                     font-size: 20px;
@@ -265,40 +274,102 @@
                         <div class="col-lg-12" style="width:auto;">
 
                             <div class="table-responsive table--no-card m-b-40">
+                                <form method="post" action="Admin\ThemBienLai"></form>
                                 <table id="dtBasicExample" class="table table-hover table-fixed" cellspacing="0" width="100%">
                                     <thead class="thead-light">
                                         <tr>
 
                                             <th>Mã Biên Lai</th>
                                             <th>Mã Hệ Học</th>
+                                            <th>Tên Lớp</th>
                                             <th>Mã Học Sinh</th>
-                                            <th>Học Phí</th>                                         
+                                            <th>Học Phí</th>
+                                            <th>Tiền Ăn 1 tháng</th>
+                                            <th>Ngày</th>
                                             <th>Người Nộp</th>
-                                            <th>Ngày Nộp</th>
+                                            <th>Số ngày vắng</th>
                                             <th>Tổng Cộng</th>
+                                            <th>Trạng Thái</th>
+                                            <th>Thao Tác</th>
                                         </tr>
 
                                     </thead>
                                     <tbody>
-                                        @foreach (var item in Model)
+                                        @foreach (var item in ViewBag.bienlai)
                                         {
-                                        <tr>
+                                            HocPhiEntities db = new HocPhiEntities();
+                                            //   String getItem = item.HocSinh.MaHocSinh;
+                                            String get = item.HocSinh.MaHocSinh;
 
-                                            <td>@Html.DisplayFor(modelItem => item.MaBienLai)</td>
-                                            <td>@Html.DisplayFor(modelItem => item.HocSinh.HeHoc.MaHeHoc)</td>
-                                            <td>@Html.DisplayFor(modelItem => item.MaHocSinh)</td>
-                                            <td>@Html.DisplayFor(modelItem => item.HocSinh.HeHoc.HocPhi)</td>                                          
-                                            <td>@Html.DisplayFor(modelItem => item.NguoiNop)</td>                      
-                                            <td> @Convert.ToDateTime(item.NgayNop).ToString("dd/MM/yyyy")</td>
-                                            <td>@Html.DisplayFor(modelItem => item.TongCong)</td>
+                                            var ddanhlist = db.DiemDanhs
+                                                .Where(n => n.HocSinh == get)
+                                                .Where(n => n.TrangThaiDiemDanh == false).ToList();
+
+                                            int soluotddanh = 0;
+
+                                            foreach (var item3 in ddanhlist)
+                                            {
+                                                if (int.Parse(item3.NgayDiemDanh.ToString("MM")) < int.Parse(DateTime.Now.ToString("MM")))
+                                                {
+                                                    soluotddanh++;
+                                                }
+                                            }
+                                            if (item.TrangThai != null)
+                                            {
+                                                _trangthai = (bool)item.TrangThai;
+
+                                            }
+                                            else
+                                            {
+                                                _trangthai = false;
+                                            }
 
 
+                                            var ngaydky = @Convert.ToDateTime(item.HocSinh.NgayDangKy).ToString("MM");
+                                            var ngayhtai = @Convert.ToDateTime(DateTime.Now).ToString("MM");
 
-                                        </tr>
+                                            int dky = int.Parse(ngaydky);
+                                            int htai = int.Parse(ngayhtai);
+                                            int tam = htai - dky;
+
+                                            int hientai = int.Parse(DateTime.Now.ToString("MM"));
 
 
+                                            var ddanh = db.DiemDanhs
+                                            .Where(n => n.HocSinh == get)
+                                            .Where(n => n.TrangThaiDiemDanh == true)
+                                            .Count();
+
+                                            double tienthang = item.TienAn1thang;
+                                            double tienhp = item.HocSinh.HeHoc.HocPhi;
+                                            double tong = tienhp + (tienthang - (50000 * soluotddanh));
+
+                                            <tr>
+
+                                                <td>@item.MaBienLai</td>
+                                                <td>@item.HocSinh.HeHoc.MaHeHoc</td>
+                                                <td>@item.HocSinh.Lop.TenLop</td>
+                                                <td>@item.HocSinh.MaHocSinh</td>
+                                                <td>@item.HocSinh.HeHoc.HocPhi</td>
+                                                <td>@item.TienAn1thang</td>
+                                                <td> @Convert.ToDateTime(item.NgayNop).ToString("dd/MM/yyyy")</td>
+                                                <td>@item.NguoiNop</td>                                             
+                                                <td>@soluotddanh</td>
+                                                <td>@tong</td>
+                                                <td>
+                                                    @Html.CheckBoxFor(modelItem => _trangthai)
+                                                </td>       
+                                                <td>
+                                                    <a href="@Url.Action("PhieuThu","Admin",new {@mabienlai = item.MaBienLai})" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Xem"><em class="fas fa-eye"></em></a>
+
+                                                    @if (_trangthai == false)
+                                                    {
+                                                        <a href="@Url.Action("SuaBienLai","Admin",new {@mabienlai = item.MaBienLai})" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Sửa" style="background-color:#b6ff00"><em class="fas fa-pencil-alt"></em></a>
+
+                                                    }
+                                                </td>
+                                            </tr>
                                         }
-
                                     </tbody>
                                 </table>
                             </div>

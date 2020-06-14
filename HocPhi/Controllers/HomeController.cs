@@ -34,8 +34,7 @@ namespace HocPhi.Controllers
                         Session["Admin"] = log.TenAdmin;
                         Session["AdHinh"] = log.HinhAnh;
                         Session["dangnhap"] = log.Email;
-
-                        
+                        Session["ID"] = log.ID;
                         return RedirectToAction("Admin/Index", "Admin");
                     }
                     else

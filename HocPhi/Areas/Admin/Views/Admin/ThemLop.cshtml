@@ -30,27 +30,41 @@
                             @Html.ValidationMessageFor(model => model.MaLop, "", new { @class = "text-danger" })
                         </div>
                         <div class="form-group ">
-                            <label for="inputPassword4">Tên Lớp Học</label>
+                            <label for="inputPassword4">Tên Lớp Học <span style="color:#ff0000">*</span></label>
                             @Html.EditorFor(model => model.TenLop, new { htmlAttributes = new { @class = "form-control" } })
                             @Html.ValidationMessageFor(model => model.TenLop, "", new { @class = "text-danger" })
                         </div>
                         <div class="form-group ">
-                            <label for="inputPassword4">Mã Hệ Học</label>
+                            <label for="inputPassword4">Mã Hệ Học <span style="color:#ff0000">*</span></label>
                             @Html.DropDownList("MaHeHoc", (IEnumerable<SelectListItem>)ViewBag.HeHoc_MHH, "---Chọn---", new { @class = "form-control" })
 
                             @Html.ValidationMessageFor(model => model.MaHeHoc, "", new { @class = "text-danger" })
                         </div>
 
-                        
+
                         <div class="form-group ">
-                            <label for="inputEmail4">Số Lượng</label>
+                            <label for="inputEmail4">Số Lượng <span style="color:#ff0000">*</span></label>
                             @Html.EditorFor(model => model.SoLuong, new { htmlAttributes = new { @class = "form-control" } })
                             @Html.ValidationMessageFor(model => model.SoLuong, "", new { @class = "text-danger" })
                         </div>
                         <div class="form-group ">
-                            <label for="inputEmail4">Mã Giáo Viên</label>
+                            <label for="inputEmail4">Mã Giáo Viên 1 <span style="color:#ff0000">*</span></label>
                             @Html.DropDownList("MaGiaoVien", (IEnumerable<SelectListItem>)ViewBag.Ma_GV, "---Chọn---", new { @class = "form-control" })
                             @Html.ValidationMessageFor(model => model.MaGiaoVien, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group ">
+                            <label for="inputEmail4">Mã Giáo Viên 2 <span style="color:#ff0000">*</span></label>
+                            @Html.DropDownList("MaGiaoVien1", (IEnumerable<SelectListItem>)ViewBag.Ma_GV, "---Chọn---", new { @class = "form-control" })
+
+                            @Html.ValidationMessageFor(model => model.MaGiaoVien1, "", new { @class = "text-danger" })
+                        </div>
+                       
+                      
+                        <div class="form-group" id="NgayBatDau">
+                            <label for="inputPassword4">Ngày Bắt Đầu <span style="color:#ff0000">*</span></label>
+                            @*@Html.TextBoxFor(model => model.NgayBatDau,new { @type = "date", @Value = Model.NgayBatDau })*@
+                            @Html.TextBoxFor(m => m.NgayBatDau, "{0:dd/mm/yyyy}", new { @type = "date", @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.NgayBatDau, "", new { @class = "text-danger" })
                         </div>
                         <div class="form-group ">
                             <label for="inputPassword4">Ghi Chú</label>
@@ -65,19 +79,10 @@
                         <button style="float:right;" type="submit" class="btn btn-primary">Thêm</button>
 
                     </div>
-
                 </div>
             </div>
-
-
-
-
-
         }
-
-
     </div>
-
 </div>
 
 

@@ -40,7 +40,7 @@
     <div class="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
         <div class="app-header header-shadow">
             <div class="app-header__logo">
-                <div class="logo-src"></div>
+                <img src="~/Content/assets/images/school.png" />
                 <div class="header__pane ml-auto">
                     <div>
                         <button type="button" class="hamburger close-sidebar-btn hamburger--elastic" data-class="closed-sidebar">
@@ -201,6 +201,12 @@
                                     Quản Lý Biên Lai
                                 </a>
                             </li>
+                            <li>
+                                <a href="@Url.Action("ThongKeDoanhThu","ThongKe")">
+                                    <i class="metismenu-icon fas fa-money-bill-wave-alt"></i>
+                                    Quản Lý Doanh Thu
+                                </a>
+                            </li>
 
                         </ul>
                     </div>
@@ -216,10 +222,10 @@
                             <a href="@Url.Action("ThemGiaoVien","Admin")" class="button"><span>Thêm </span> </a>
                             <style>
                                 .button {
-                                    border-radius: 32px;
-                                    background-color: #A8A8A8;
+                                    
+                                    background-color: #00ffff;
                                     border: none;
-                                    color: #FFFFFF;
+                                    color: #000000;
                                     text-align: center;
                                     font-weight: bold;
                                     font-size: 20px;
@@ -287,8 +293,8 @@
                                                 
 
                                                 <td >
-                                                    <a href="@Url.Action("SuaGiaoVien","Admin",new {@magiaovien = item.MaGiaoVien})" class="btn btn-default"><em class="fas fa-pencil-alt"></em></a>
-                                                    <a href="@Url.Action("XoaGiaoVien","Admin",new {@magiaovien = item.MaGiaoVien})" class="btn btn-danger"><em class="fas fa-trash-alt"></em></a>
+                                                    <a href="@Url.Action("SuaGiaoVien","Admin",new {@magiaovien = item.MaGiaoVien})" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Sửa" style="background-color:#b6ff00"><em class="fas fa-pencil-alt"></em></a>
+                                                    <a href="@Url.Action("XoaGiaoVien","Admin",new {@magiaovien = item.MaGiaoVien})" class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Xóa"><em class="fas fa-trash-alt"></em></a>
                                                 </td>
                                             </tr>
                                         }
