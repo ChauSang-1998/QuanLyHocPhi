@@ -26,12 +26,12 @@
                     <div class="card-body card-block">
                         <div class="form-group ">
                             <label for="inputPassword4">Mã Học Sinh</label>
-                            @Html.EditorFor(model => model.MaHocSinh, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.EditorFor(model => model.MaHocSinh, new { htmlAttributes = new { @readonly = "readonly", @class = "form-control" } })
                             @Html.ValidationMessageFor(model => model.MaHocSinh, "", new { @class = "text-danger" })
                         </div>
                         <div class="form-group ">
                             <label for="inputEmail4">Tên Học Sinh</label>
-                            @Html.EditorFor(model => model.TenHocSinh, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.EditorFor(model => model.TenHocSinh, new { htmlAttributes = new {  @class = "form-control" } })
                             @Html.ValidationMessageFor(model => model.TenHocSinh, "", new { @class = "text-danger" })
                         </div>
 
