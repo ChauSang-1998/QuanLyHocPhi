@@ -1,6 +1,7 @@
-﻿@model IEnumerable<HocPhi.Models.Lop>
+﻿@model IEnumerable<HocPhi.Models.GiaoVien>
+@using HocPhi.Models;
 @{
-    ViewBag.Title = "Lop";
+    ViewBag.Title = "QuanLyTK";
     Layout = null;
 }
 
@@ -33,7 +34,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.20/datatables.min.css" />
-    <script type="text/javascript" src="~/Content/s3/datatable.js"></script>
+    <script src="~/Content/s3/datatable.js"></script>
 </head>
 <body>
     <div class="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
@@ -59,7 +60,7 @@
                             <input type="text" class="search-input" placeholder="Type to search">
                             <button class="search-icon"><span></span></button>
                         </div>
-                      
+                        <button class="close"></button>
                     </div>
                 </div>
                 <div class="app-header-right">
@@ -107,7 +108,7 @@
         <div class="app-main">
             <div class="app-sidebar sidebar-shadow">
                 <div class="app-header__logo">
-                  
+                    <div class="logo-src"></div>
                     <div class="header__pane ml-auto">
                         <div>
                             <button type="button" class="hamburger close-sidebar-btn hamburger--elastic" data-class="closed-sidebar">
@@ -154,24 +155,23 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="@Url.Action("GiaoVien","Admin")">
+                                <a href="@Url.Action("GiaoVien","Admin")" >
                                     <i class="metismenu-icon fas fa-chalkboard-teacher"></i>
                                     Quản Lý Giáo Viên
                                 </a>
                             </li>
                             <li>
-                                <a href="@Url.Action("QuanLyTK","Admin")">
+                                <a href="@Url.Action("QuanLyTK","Admin")" class="mm-active">
                                     <i class="metismenu-icon fas fa-chalkboard-teacher"></i>
                                     Quản Lý Tài Khoản
                                 </a>
                             </li>
                             <li>
-                                <a href="@Url.Action("Lop","Admin")" class="mm-active">
+                                <a href="@Url.Action("Lop","Admin")">
                                     <i class="metismenu-icon fas fa-users-cog"></i>
                                     Quản Lý Lớp Học
                                 </a>
                             </li>
-
                             <li>
                                 <a href="@Url.Action("HocSinh","Admin")">
                                     <i class="metismenu-icon fas fa-user-friends"></i>
@@ -244,10 +244,9 @@
 
                             <!-- <button class="w3-button w3-xlarge w3-circle w3-teal">+</button> -->
 
-                            <a href="@Url.Action("ThemLop","Admin")" class="button"><span>Thêm </span> </a>
+                            <a href="@Url.Action("ThemTK","Admin")" class="button"><span>Thêm </span> </a>
                             <style>
                                 .button {
-                                
                                     background-color: #00ffff;
                                     border: none;
                                     color: #000000;
@@ -289,7 +288,6 @@
                             </style>
 
                         </div>
-                        
 
                     </div>
                     <div class="row">
@@ -299,54 +297,41 @@
                                     <thead class="thead-light">
                                         <tr>
 
-                                            <th>Mã Lớp</th>
-                                            <th>Tên Lớp</th>
-                                            <th>Tên Hệ Học</th>
-                                            <th>Số Lượng</th>
-                                            <th>Tên Giáo Viên 1</th>
-                                            <th>Tên Giáo Viên 2</th>
-                                            <th>Ngày Bắt Đầu</th>
-                                            <th>Ghi Chú</th>
+                                            <th>Mã Giáo Viên</th>
+                                            <th>Tên Giáo Viên</th>
+                                            <th>Email</th>
+                                            <th>Password</th>
+                                            <th>Điện Thoại</th>
+                                            <th>Địa Chỉ</th>
                                             <th>Thao Tác</th>
+
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @using HocPhi.Models;
-
                                         @foreach (var item in Model)
                                         {
-                                            {
-
-                                                HocPhiEntities db = new HocPhiEntities();
-
-
-
-                                                ViewBag.gv1 = db.GiaoViens.Where(n => n.MaGiaoVien == item.MaGiaoVien).First();
-                                                ViewBag.gv2 = db.GiaoViens.Where(n => n.MaGiaoVien == item.MaGiaoVien1).First();
-
-                                            }
+                                            HocPhiEntities db = new HocPhiEntities();
+                                            var tk = db.Admins.Where(n => n.MaGiaoVien == item.MaGiaoVien).FirstOrDefault();
                                         <tr>
 
-                                            <td>@Html.DisplayFor(modelItem => item.MaLop)</td>
-                                            <td>@Html.DisplayFor(modelItem => item.TenLop)</td>
-                                            <td>@Html.DisplayFor(modelItem => item.HeHoc.TenHeHoc)</td>
-                                            <td>@Html.DisplayFor(modelItem => item.SoLuong)</td>
-                                            <td>@ViewBag.gv1.TenGiaoVien</td>
-                                            <td>@ViewBag.gv2.TenGiaoVien</td>
-                                            @*<td>@Html.DisplayFor(modelItem => item.MaGiaoVien)</td>
-        <td>@Html.DisplayFor(modelItem => item.MaGiaoVien1)</td>*@
+                                            <td>@Html.DisplayFor(modelItem => item.MaGiaoVien)</td>
+                                            <td>@Html.DisplayFor(modelItem => item.TenGiaoVien)</td>
+                                            @if (tk != null)
+                                            {
+                                                <td>@tk.Email</td>
+                                            }
+                                            else
+                                            {
+                                                <td style="color:red">Chưa có Email</td>
+                                            }
+                                            <td>@Html.DisplayFor(modelItem => item.DienThoai)</td>
+                                            <td>@Html.DisplayFor(modelItem => item.DiaChi)</td>
 
 
-                                            @*<td>@Html.DisplayFor(modelItem => item.GiaoVien1.TenGiaoVien)</td>*@
-                                            <td> @Convert.ToDateTime(item.NgayBatDau).ToString("dd/MM/yyyy")</td>
-                                            @*      <td>@Html.DisplayFor(modelItem => item.NgayBatDau)</td>*@
-
-                                            <td>@Html.DisplayFor(modelItem => item.GhiChu)</td>
-                                            <td>
-                                                <a href="@Url.Action("XemHocSinh","Admin",new {@malop = item.MaLop})" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Xem"><em class="fas fa-eye"></em></a>
-                                                <a href="@Url.Action("SuaLop","Admin",new {@malop = item.MaLop})" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Sửa" style="background-color:#b6ff00"><em class="fas fa-pencil-alt"></em></a>
-                                                <a href="@Url.Action("XoaLop","Admin",new {@malop = item.MaLop})" class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Xóa"><em class="fas fa-trash-alt"></em></a>
-                                            </td>
+                                            @*<td>
+            <a href="@Url.Action("SuaGiaoVien","Admin",new {@magiaovien = item.MaGiaoVien})" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Sửa" style="background-color:#b6ff00"><em class="fas fa-pencil-alt"></em></a>
+            <a href="@Url.Action("XoaGiaoVien","Admin",new {@magiaovien = item.MaGiaoVien})" class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Xóa"><em class="fas fa-trash-alt"></em></a>
+        </td>*@
                                         </tr>
                                         }
                                     </tbody>

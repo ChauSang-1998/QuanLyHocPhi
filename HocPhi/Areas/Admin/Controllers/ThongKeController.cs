@@ -106,6 +106,37 @@ namespace HocPhi.Areas.Admin.Controllers
 
         }
 
+        [HttpGet]
+        public ActionResult ThongKeCongNo()
+        {
+            //ViewBag.Lop_MaL = new SelectList(db.Lops.ToList().OrderBy(n => n.MaLop), "TenLop", "TenLop");
+
+            return View();
+
+        }
+        public ActionResult CongNo()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult CongNo(FormCollection f)
+        {
+            int MaBienLai = Convert.ToInt32(f["MaBienLai"]);
+
+            DateTime Ngay = Convert.ToDateTime(f["NgayNop"]);
+            bool TrangThai = Convert.ToBoolean(f["TrangThai"]);
+            DateTime NgayEnd = Convert.ToDateTime(f["NgayNopEnd"]);
+            ViewBag.Result = db.BienLais.Where(x => x.NgayNop >= Ngay)
+                .Where(x => x.NgayNop <= NgayEnd)
+                .Where(x => x.TrangThai == false)
+                .ToList();
+
+            return View();
+
+
+        }
+
+
 
         [HttpPost]
         [AjaxOnly]

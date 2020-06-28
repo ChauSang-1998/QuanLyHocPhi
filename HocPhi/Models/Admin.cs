@@ -19,5 +19,9 @@ namespace HocPhi.Models
         public string Password { get; set; }
         public string TenAdmin { get; set; }
         public string HinhAnh { get; set; }
+        public Nullable<int> role { get; set; }
+        public string MaGiaoVien { get; set; }
+    
+        public virtual GiaoVien GiaoVien { get; set; }
     }
 }

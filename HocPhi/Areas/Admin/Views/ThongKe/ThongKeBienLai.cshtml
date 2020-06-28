@@ -11,12 +11,10 @@
     <label>Chọn lớp </label>
     @Html.DropDownList("TenLop", (IEnumerable<SelectListItem>)ViewBag.Lop_MaL, "Chọn 1 lớp")
     <div class='input-group date' id='datetimepicker2'>
-        <label> Chọn ngày </label>
-        <input type="date" class="form-control" name="NgayNop" style="max-width: 200px;margin:5px; " />
-    </div>
-    <br />
-    <div class='input-group date' id='datetimepicker2'>
-        <label> Chọn ngày </label>
+        <label> Từ ngày </label>
+        <input type="date" class="form-control" name="NgayNop"style="max-width: 200px;margin:5px; " />
+   
+        <label> đến ngày </label>
         <input type="date" class="form-control" name="NgayNopEnd" style="max-width: 200px;margin:5px; " />
     </div>
     <br />

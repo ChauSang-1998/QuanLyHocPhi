@@ -22,6 +22,7 @@
         <AssociationConnector Association="HocPhiModel.FK_Lop_GiaoVien1" />
         <AssociationConnector Association="HocPhiModel.FK_Lop_GiaoVien2" />
         <AssociationConnector Association="HocPhiModel.FK_Lop_GiaoVien11" />
+        <AssociationConnector Association="HocPhiModel.FK_Admin_GiaoVien" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -20,6 +20,14 @@ namespace HocPhi.Controllers
         {
             return View();
         }
+        public ActionResult Register()
+        {
+            return View();
+        }
+        public ActionResult ForgotPass()
+        {
+            return View();
+        }
         [HttpPost]
         public ActionResult Login(Login lg)
         {

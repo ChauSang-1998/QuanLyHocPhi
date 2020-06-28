@@ -364,6 +364,10 @@
     <Content Include="Areas\Admin\Views\Admin\PhieuThu.cshtml" />
     <Content Include="Areas\Admin\Views\ThongKe\ThongKeDoanhThu.cshtml" />
     <Content Include="Areas\Admin\Views\ThongKe\DoanhThu.cshtml" />
+    <Content Include="Areas\Admin\Views\ThongKe\ThongKeCongNo.cshtml" />
+    <Content Include="Areas\Admin\Views\ThongKe\CongNo.cshtml" />
+    <Content Include="Areas\Admin\Views\Admin\QuanLyTK.cshtml" />
+    <Content Include="Areas\Admin\Views\Admin\ThemTK.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -442,6 +446,8 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Login.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+    <Content Include="Views\Home\Register.cshtml" />
+    <Content Include="Views\Home\ForgotPass.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -46,8 +46,6 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
 </head>
     @RenderSection("datetimepicker", required: false);
-
-
 <body>
     <div class="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
         <div class="app-header header-shadow">
@@ -100,11 +98,11 @@
 
 
                                                     <div type="button" tabindex="0" class="dropdown-item">
-                                                        <a style="text-decoration:none; color:#000000" href="@Url.Action("exit", "Admin")">
+                                                        <a style="text-decoration:none; color:#000000" href="@Url.Action("exit","Admin")">
                                                             Đăng Xuất
                                                         </a>
                                                     </div>
-
+                                                    
                                                 </div>
                                             }
                                         </div>
@@ -175,6 +173,12 @@
                                 </a>
                             </li>
                             <li>
+                                <a href="@Url.Action("QuanLyTK","Admin")">
+                                    <i class="metismenu-icon fas fa-chalkboard-teacher"></i>
+                                    Quản Lý Tài Khoản
+                                </a>
+                            </li>
+                            <li>
                                 <a href="@Url.Action("Lop","Admin")">
                                     <i class="metismenu-icon fas fa-users-cog"></i>
                                     Quản Lý Lớp Học
@@ -211,11 +215,31 @@
                                     <i class="metismenu-icon fas fa-money-bill"></i>
                                     Quản Lý Biên Lai
                                 </a>
+                                <ul>
+                                    <li>
+                                        <a href="@Url.Action("BienLai","Admin")">
+                                            <i class="metismenu-icon">
+                                            </i>Biên Lai
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="@Url.Action("ThongKeBienLai","ThongKe")">
+                                            <i class="metismenu-icon">
+                                            </i>Thống Kê Biên Lai
+                                        </a>
+                                    </li>
+                                </ul>
                             </li>
                             <li>
                                 <a href="@Url.Action("ThongKeDoanhThu","ThongKe")">
                                     <i class="metismenu-icon fas fa-money-bill-wave-alt"></i>
                                     Quản Lý Doanh Thu
+                                </a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("ThongKeCongNo","ThongKe")">
+                                    <i class="metismenu-icon fas fa-money-bill-wave-alt"></i>
+                                    Quản Lý Công Nợ
                                 </a>
                             </li>
                         </ul>

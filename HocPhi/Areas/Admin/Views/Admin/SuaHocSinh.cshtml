@@ -21,7 +21,6 @@
                 <div class="card" style="background:#e9e9e9">
                     <div class="card-header">
                         <strong>Sửa Học Sinh</strong>
-
                     </div>
                     <div class="card-body card-block">
                         <div class="form-group ">
@@ -73,32 +72,20 @@
                             @Html.EditorFor(model => model.DiaChiLienHe, new { htmlAttributes = new { @class = "form-control" } })
                             @Html.ValidationMessageFor(model => model.DiaChiLienHe, "", new { @class = "text-danger" })
                         </div>
-
                         <div class="form-group">
                             <label for="inputEmail4">Ngày Đăng Ký </label>
                             @Html.TextBoxFor(model => model.NgayDangKy, new { type = "date", @class = "form-control" })
                             @Html.ValidationMessageFor(model => model.NgayDangKy, "", new { @class = "text-danger" })
                         </div>
-
                         <style>
                             .form-group .form-control {
                                 padding-left: 7px;
                             }
                         </style>
                         <button style="float:right;" type="submit" class="btn btn-primary">Sửa</button>
-
                     </div>
-
                 </div>
             </div>
-
-
-
-
-
         }
-
-
     </div>
-
 </div>

@@ -4,16 +4,11 @@
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
-
 <div class="row">
     <div class="col-lg-11">
-
-
-
         @using (Html.BeginForm())
         {
             @Html.AntiForgeryToken()
-
 
             <div class="col-lg-6" style="margin-left:250px;">
 
@@ -92,7 +87,7 @@
                         <button style="float:right;" type="submit" class="btn btn-primary">Thêm</button>
                         <script>
                             $(document).ready(function () {
-                                $("#MaHeHoc").change(function () {
+                                $("#MaHeHoc").change(function ()
                                     $.get("/Admin/Admin/GetStateListhehoc_lop", { MaLop: $("#MaHeHoc").val() }, function (data) {
                                         $("#MaLop").empty();
                                         $.each(data, function (index, row) {

@@ -93,7 +93,7 @@
                                                             Đăng Xuất
                                                         </a>
                                                     </div>
-
+                                                   
                                                 </div>
                                             }
                                         </div>
@@ -152,7 +152,7 @@
                             </li>
                             <li class="app-sidebar__heading">Quản Lý</li>
                             <li>
-                                <a href="@Url.Action("HeHoc","Admin")" >
+                                <a href="@Url.Action("HeHoc","Admin")">
                                     <i class="metismenu-icon fas fa-school"></i>
                                     Quản Lý Hệ Học
                                 </a>
@@ -161,6 +161,12 @@
                                 <a href="@Url.Action("GiaoVien","Admin")">
                                     <i class="metismenu-icon fas fa-chalkboard-teacher"></i>
                                     Quản Lý Giáo Viên
+                                </a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("QuanLyTK","Admin")">
+                                    <i class="metismenu-icon fas fa-chalkboard-teacher"></i>
+                                    Quản Lý Tài Khoản
                                 </a>
                             </li>
                             <li>
@@ -202,11 +208,31 @@
                                     <i class="metismenu-icon fas fa-money-bill"></i>
                                     Quản Lý Biên Lai
                                 </a>
+                                <ul>
+                                    <li>
+                                        <a href="@Url.Action("BienLai","Admin")">
+                                            <i class="metismenu-icon">
+                                            </i>Biên Lai
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="@Url.Action("ThongKeBienLai","ThongKe")">
+                                            <i class="metismenu-icon">
+                                            </i>Thống Kê Biên Lai
+                                        </a>
+                                    </li>
+                                </ul>
                             </li>
                             <li>
                                 <a href="@Url.Action("ThongKeDoanhThu","ThongKe")">
                                     <i class="metismenu-icon fas fa-money-bill-wave-alt"></i>
                                     Quản Lý Doanh Thu
+                                </a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("ThongKeCongNo","ThongKe")">
+                                    <i class="metismenu-icon fas fa-money-bill-wave-alt"></i>
+                                    Quản Lý Công Nợ
                                 </a>
                             </li>
 

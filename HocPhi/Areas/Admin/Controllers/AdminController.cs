@@ -24,6 +24,10 @@ namespace HocPhi.Areas.Admin.Controllers
         // GET: Admin/Admin
         public ActionResult Index()
         {
+            if (Session["ID"] == null || Session["ID"].ToString() == " ")
+            {
+                return Redirect("/Home/Login");
+            }
             var tsHeHoc = db.HeHocs.OrderByDescending(m => m.MaHeHoc);
             ViewBag.tsHeHoc = tsHeHoc.Count();
 
@@ -181,6 +185,13 @@ namespace HocPhi.Areas.Admin.Controllers
         {
             db.Configuration.ProxyCreationEnabled = false;
             List<HocSinh> ds = db.HocSinhs.Where(x => x.MaHeHoc == mahocsinh).ToList();
+            return Json(ds, JsonRequestBehavior.AllowGet);
+
+        }
+        public JsonResult GetStateListGV(string magv)
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+            List<GiaoVien> ds = db.GiaoViens.Where(x => x.MaGiaoVien == magv).ToList();
             return Json(ds, JsonRequestBehavior.AllowGet);
 
         }
@@ -481,6 +492,40 @@ namespace HocPhi.Areas.Admin.Controllers
             ViewBag.bienlai = blai;
             return View();
         }
+        public ActionResult QuanLyTK()
+        {
+            if (Session["ID"] == null || Session["ID"].ToString() == " ")
+            {
+                return Redirect("/Home/Login");
+            }
+            var gv = db.GiaoViens.ToList();
+            var tk = db.Admins.ToList();
+            return View(gv);
+            
+        }
+        [HttpGet]
+        public ActionResult ThemTK()
+        { 
+            ViewBag.Ma_GV = new SelectList(db.GiaoViens.ToList().OrderBy(n => n.MaGiaoVien), "MaGiaoVien", "MaGiaoVien");
+            ViewBag.Ma_GVv = new SelectList(db.GiaoViens.ToList().OrderBy(n => n.TenGiaoVien), "TenGiaoVien", "TenGiaoVien");
+
+            return View();
+        }
+        [HttpPost]
+        public ActionResult ThemTK(GiaoVien gv)
+        {
+            ViewBag.Ma_GV = new SelectList(db.GiaoViens.ToList().OrderBy(n => n.MaGiaoVien), "MaGiaoVien", "MaGiaoVien");
+            ViewBag.Ma_GVv = new SelectList(db.GiaoViens.ToList().OrderBy(n => n.TenGiaoVien), "TenGiaoVien", "TenGiaoVien");
+
+            if (ModelState.IsValid)
+            {
+                db.GiaoViens.Add(gv);
+                db.SaveChanges();
+                return RedirectToAction("GiaoVien");
+            }
+            return View();
+        }
+
         private void @foreach(object var, object item, dynamic bienlai)
         {
             throw new NotImplementedException();
