@@ -20,6 +20,7 @@ namespace HocPhi
             Session["AdHinh"] = null;
             Session["dangnhap"] = null;
             Session["ID"] = null;
+            Session["getClass"] = null;
         }
     }
 }

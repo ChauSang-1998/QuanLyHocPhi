@@ -16,7 +16,6 @@ namespace HocPhi.Models
     {
         public int MaBienLai { get; set; }
         public string MaHocSinh { get; set; }
-        public Nullable<double> TongCong { get; set; }
         public Nullable<System.DateTime> NgayNop { get; set; }
         public string NguoiNop { get; set; }
         public Nullable<double> TienAn1ngay { get; set; }

@@ -1,4 +1,4 @@
-﻿@model HocPhi.Models.Admin
+﻿@model HocPhi.Models.Account
 
 @{
     ViewBag.Title = "ThemTK";
@@ -18,25 +18,27 @@
                     </div>
                     <div class="card-body card-block">
                         <div class="form-group">
-                            <label for="inputEmail4">Mã Giáo Viên <span style="color:#ff0000">*</span></label>
-                            @if (ViewBag.Ma_GV != null)
-                            {
-                                @Html.DropDownListFor(model => model.MaGiaoVien, ViewBag.Ma_GV as SelectList, "---Chọn---", new { @class = "form-control" })
-
-                            }
+                            <label for="inputEmail4">Mã Giáo Viên </label>
+                            @Html.EditorFor(model => model.MaGiaoVien, new { htmlAttributes = new { @readonly = "readonly", @class = "form-control" } })
                             @Html.ValidationMessageFor(model => model.MaGiaoVien, "", new { @class = "text-danger" })
                         </div>
+
                         <div class="form-group ">
-                            <label for="inputPassword4">Email<span style="color:#ff0000">*</span></label>
+                            <label for="inputPassword4">Email</label>
                             @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.MaGiaoVien, "", new { @class = "text-danger" })
-                        </div>
-                        <div class="form-group ">
-                            <label for="inputPassword4">Mật Khẩu<span style="color:#ff0000">*</span></label>
-                            @Html.EditorFor(model => model.Password, new { htmlAttributes = new { type="password",@class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.MaGiaoVien, "", new { @class = "text-danger" })
+                            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
                         </div>
 
+                        <div class="form-group ">
+                            <label for="inputPassword4">Mật Khẩu</label>
+                            @Html.EditorFor(model => model.Password, new { htmlAttributes = new { type = "password", @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group ">
+                            <label for="inputPassword4">Chọn Ảnh</label>
+                            @Html.EditorFor(model => model.HinhAnh, new { htmlAttributes = new { type = "file" } })
+                            @Html.ValidationMessageFor(model => model.HinhAnh, "", new { @class = "text-danger" })
+                        </div>
                         <style>
                             .form-group .form-control {
                                 padding-left: 7px;

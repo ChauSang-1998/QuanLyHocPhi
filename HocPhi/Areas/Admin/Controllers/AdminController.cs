@@ -60,13 +60,18 @@ namespace HocPhi.Areas.Admin.Controllers
         [HttpGet]
         public ActionResult ThemHeHoc()
         {
-        
+            if (Session["ID"] == null || Session["ID"].ToString() == " ")
+            {
+                return Redirect("/Home/Login");
+            }
+
             return View();
         }
 
         [HttpPost]  
         public ActionResult ThemHeHoc(HeHoc hehoc)
         {
+
             if (ModelState.IsValid)
             {
                 db.HeHocs.Add(hehoc);
@@ -78,6 +83,10 @@ namespace HocPhi.Areas.Admin.Controllers
         [HttpGet]
         public ActionResult SuaHeHoc(string mahehoc)
         {
+            if (Session["ID"] == null || Session["ID"].ToString() == " ")
+            {
+                return Redirect("/Home/Login");
+            }
             HeHoc hehoc = db.HeHocs.SingleOrDefault(n => n.MaHeHoc == mahehoc);
             return View(hehoc);
         }
@@ -108,6 +117,10 @@ namespace HocPhi.Areas.Admin.Controllers
         [HttpGet]
         public ActionResult ThemHocSinh()
         {
+            if (Session["ID"] == null || Session["ID"].ToString() == " ")
+            {
+                return Redirect("/Home/Login");
+            }
             ViewBag.HeHoc_MHH = new SelectList(db.HeHocs.ToList().OrderBy(n => n.MaHeHoc), "MaHeHoc", "MaHeHoc");
             ViewBag.Lop_MaL = new SelectList(db.Lops.ToList().OrderBy(n => n.MaLop), "MaLop", "MaLop");
 
@@ -129,6 +142,10 @@ namespace HocPhi.Areas.Admin.Controllers
         [HttpGet]
         public ActionResult SuaHocSinh(string mahocsinh)
         {
+            if (Session["ID"] == null || Session["ID"].ToString() == " ")
+            {
+                return Redirect("/Home/Login");
+            }
             HocSinh hocsinh = db.HocSinhs.SingleOrDefault(n => n.MaHocSinh == mahocsinh);
             return View(hocsinh);
         }
@@ -164,6 +181,10 @@ namespace HocPhi.Areas.Admin.Controllers
         [HttpGet]
         public ActionResult XemHocSinh(string malop)
         {
+            if (Session["ID"] == null || Session["ID"].ToString() == " ")
+            {
+                return Redirect("/Home/Login");
+            }
             var products = db.HocSinhs.Where(pr => pr.MaLop == malop).ToList();
 
             return View(products);
@@ -198,7 +219,10 @@ namespace HocPhi.Areas.Admin.Controllers
         [HttpGet]
         public ActionResult ThemLop()
         {
-
+            if (Session["ID"] == null || Session["ID"].ToString() == " ")
+            {
+                return Redirect("/Home/Login");
+            }
             ViewBag.Ma_GV = new SelectList(db.GiaoViens.ToList().OrderBy(n => n.MaGiaoVien), "MaGiaoVien", "MaGiaoVien");
             ViewBag.Ma_GV1 = new SelectList(db.GiaoViens.ToList().OrderBy(n => n.MaGiaoVien), "MaGiaoVien1", "MaGiaoVien1");
 
@@ -223,6 +247,10 @@ namespace HocPhi.Areas.Admin.Controllers
         [HttpGet]
         public ActionResult SuaLop(string malop)
         {
+            if (Session["ID"] == null || Session["ID"].ToString() == " ")
+            {
+                return Redirect("/Home/Login");
+            }
             ViewBag.Ma_GV = new SelectList(db.GiaoViens.ToList().OrderBy(n => n.MaGiaoVien), "MaGiaoVien", "MaGiaoVien");
 
             Lop lop = db.Lops.SingleOrDefault(n => n.MaLop == malop);
@@ -270,6 +298,10 @@ namespace HocPhi.Areas.Admin.Controllers
         [HttpGet]
         public ActionResult ThemGiaoVien()
         {
+            if (Session["ID"] == null || Session["ID"].ToString() == " ")
+            {
+                return Redirect("/Home/Login");
+            }
             return View();
         }
         [HttpPost]
@@ -286,6 +318,10 @@ namespace HocPhi.Areas.Admin.Controllers
         [HttpGet]
         public ActionResult SuaGiaoVien(string magiaovien)
         {
+            if (Session["ID"] == null || Session["ID"].ToString() == " ")
+            {
+                return Redirect("/Home/Login");
+            }
             GiaoVien gv = db.GiaoViens.SingleOrDefault(n => n.MaGiaoVien == magiaovien);
             return View(gv);
         }
@@ -307,14 +343,16 @@ namespace HocPhi.Areas.Admin.Controllers
         [HttpGet]
         public ActionResult ChonLopDiemDanh()
         {
-            if (Session["ID"] == null || Session["ID"].ToString() == " ")
-            {
-                return Redirect("/Home/Login");
-            }
+
+
+            var malop = Session["getClass"].ToString();
+
             using (HocPhiEntities context = new HocPhiEntities())
             {
-                var dsLop = (from lop in context.Lops
-                             select lop).ToList();
+                //var dsLop = (from lop in context.Lops
+                //             select lop).ToList();
+                var dsLop = db.Lops.Where(n=>n.MaLop == malop).ToList();
+
                 return View(dsLop);
             }
                 
@@ -433,6 +471,10 @@ namespace HocPhi.Areas.Admin.Controllers
         [HttpGet]
         public ActionResult ThemBienLai()
         {
+            if (Session["ID"] == null || Session["ID"].ToString() == " ")
+            {
+                return Redirect("/Home/Login");
+            }
             ViewBag.HeHoc_MHH = new SelectList(db.HeHocs.ToList().OrderBy(n => n.MaHeHoc), "MaHeHoc", "MaHeHoc");
             ViewBag.Ma_HS = new SelectList(db.HocSinhs.ToList().OrderBy(n => n.MaHocSinh), "MaHocSinh", "MaHocSinh");
 
@@ -499,29 +541,36 @@ namespace HocPhi.Areas.Admin.Controllers
                 return Redirect("/Home/Login");
             }
             var gv = db.GiaoViens.ToList();
-            var tk = db.Admins.ToList();
+            
             return View(gv);
             
         }
         [HttpGet]
-        public ActionResult ThemTK()
-        { 
-            ViewBag.Ma_GV = new SelectList(db.GiaoViens.ToList().OrderBy(n => n.MaGiaoVien), "MaGiaoVien", "MaGiaoVien");
-            ViewBag.Ma_GVv = new SelectList(db.GiaoViens.ToList().OrderBy(n => n.TenGiaoVien), "TenGiaoVien", "TenGiaoVien");
+        public ActionResult ThemTK(string magiaovien)
+        {
+            if (Session["ID"] == null || Session["ID"].ToString() == " ")
+            {
+                return Redirect("/Home/Login");
+            }
 
-            return View();
+            Account gv = db.Accounts.SingleOrDefault(n => n.MaGiaoVien == magiaovien);
+            return View(gv);
         }
         [HttpPost]
-        public ActionResult ThemTK(GiaoVien gv)
+        public ActionResult ThemTK(Account gv)
         {
+            if (Session["ID"] == null || Session["ID"].ToString() == " ")
+            {
+                return Redirect("/Home/Login");
+            }
             ViewBag.Ma_GV = new SelectList(db.GiaoViens.ToList().OrderBy(n => n.MaGiaoVien), "MaGiaoVien", "MaGiaoVien");
             ViewBag.Ma_GVv = new SelectList(db.GiaoViens.ToList().OrderBy(n => n.TenGiaoVien), "TenGiaoVien", "TenGiaoVien");
 
             if (ModelState.IsValid)
             {
-                db.GiaoViens.Add(gv);
+                db.Accounts.Add(gv);
                 db.SaveChanges();
-                return RedirectToAction("GiaoVien");
+                return RedirectToAction("QuanLyTK");
             }
             return View();
         }

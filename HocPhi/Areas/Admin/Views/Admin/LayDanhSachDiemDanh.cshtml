@@ -54,31 +54,32 @@
         {
             _trangthai = false;
         }
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.TenHocSinh)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.GioiTinh)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NamSinh)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TenPhuHuynh)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DienThoai)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DiaChiLienHe)
-            </td>
-            <td>
-                @Html.CheckBoxFor(modelItem => _trangthai, htmlAttributes: new { @class = "statusDiemDanh" })
-            </td>
-            @Html.HiddenFor(modeItem => item.MaHocSinh, htmlAttributes: new { @class = "MaCuaHS" })
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.TenHocSinh)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.GioiTinh)
+        </td>
+        
+        <td> @Convert.ToDateTime(item.NamSinh).ToString("dd/MM/yyyy")</td>
+     
 
-        </tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.TenPhuHuynh)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DienThoai)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DiaChiLienHe)
+        </td>
+        <td>
+            @Html.CheckBoxFor(modelItem => _trangthai, htmlAttributes: new { @class = "statusDiemDanh" })
+        </td>
+        @Html.HiddenFor(modeItem => item.MaHocSinh, htmlAttributes: new { @class = "MaCuaHS" })
+
+    </tr>
     }
 
 </table>

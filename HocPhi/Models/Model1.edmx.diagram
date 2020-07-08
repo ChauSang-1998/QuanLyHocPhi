@@ -5,8 +5,7 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="bc37054643a246c185bc47539ca061f7" Name="Diagram1">
-        <EntityTypeShape EntityType="HocPhiModel.Admin" Width="1.5" PointX="0.75" PointY="1.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="HocPhiModel.DiemDanh" Width="1.5" PointX="5.25" PointY="14.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="HocPhiModel.DiemDanh" Width="1.5" PointX="1.5" PointY="15" IsExpanded="true" />
         <EntityTypeShape EntityType="HocPhiModel.GiaoVien" Width="2.25" PointX="4" PointY="11.5" IsExpanded="true" />
         <EntityTypeShape EntityType="HocPhiModel.HeHoc" Width="1.5" PointX="0.875" PointY="5.75" IsExpanded="true" />
         <EntityTypeShape EntityType="HocPhiModel.HocSinh" Width="1.5" PointX="3" PointY="3.875" IsExpanded="true" />
@@ -22,7 +21,8 @@
         <AssociationConnector Association="HocPhiModel.FK_Lop_GiaoVien1" />
         <AssociationConnector Association="HocPhiModel.FK_Lop_GiaoVien2" />
         <AssociationConnector Association="HocPhiModel.FK_Lop_GiaoVien11" />
-        <AssociationConnector Association="HocPhiModel.FK_Admin_GiaoVien" />
+        <EntityTypeShape EntityType="HocPhiModel.Account" Width="1.5" PointX="7" PointY="10.75" />
+        <AssociationConnector Association="HocPhiModel.FK_Admin_GiaoVien1" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

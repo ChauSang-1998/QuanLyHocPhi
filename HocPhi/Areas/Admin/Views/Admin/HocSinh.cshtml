@@ -58,36 +58,35 @@
                     <div class="app-header-right">
                         <div class="header-btn-lg pr-0">
                             <div class="widget-content p-0">
-                                <div class="widget-content-wrapper">
-                                    <div class="widget-content-left">
-                                        <div class="account-item clearfix js-item-menu">
-                                            @if (Session["Admin"] != null)
-                                            {
-                                                <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="p-0 btn">
+                                @if (Session["Admin"] != null)
+                                {
+                                    <div class="widget-content-wrapper">
+                                        <div class="widget-content-left">
+                                            <div class="btn-group">
 
-                                                    <img width="50" height="50" class="rounded-circle" src="@Url.Content("~/Content/images/icon/" + @Session["AdHinh"])" alt="">
+                                                <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="p-0 btn">
+                                                    <img width="42" class="rounded-circle" src="@Url.Content("~/Content/assets/images/avatars/" + @Session["AdHinh"])" alt="">
                                                     <i class="fa fa-angle-down ml-2 opacity-8"></i>
                                                 </a>
-
-                                                <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu dropdown-menu-right" style="width:auto;">
-                                                    <div type="button" tabindex="0" class="dropdown-item">
-                                                        <h5>@Session["Admin"]</h5>
-
-                                                    </div>
-
-
-                                                    <div type="button" tabindex="0" class="dropdown-item">
-                                                        <a style="text-decoration:none; color:#000000" href="@Url.Action("exit", "Admin")">
-                                                            Đăng Xuất
-                                                        </a>
-                                                    </div>
+                                                <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu dropdown-menu-right">
+                                                    <a type="button" href="@Url.Action("exit", "Admin")" tabindex="0" class="dropdown-item">Đăng Xuất</a>
 
                                                 </div>
-                                            }
+
+                                            </div>
+
+                                        </div>
+                                        <div class="widget-content-left  ml-3 header-user-info">
+                                            <div class="widget-heading">
+                                                @Session["Admin"]
+                                            </div>
+                                            <div class="widget-subheading">
+                                                VP People Manager
+                                            </div>
                                         </div>
 
                                     </div>
-                                </div>
+                                }
                             </div>
                         </div>
                     </div>
@@ -237,7 +236,6 @@
                             <a href="@Url.Action("ThemHocSinh","Admin")" class="button"><span>Thêm </span> </a>
                             <style>
                                 .button {
-                           
                                     background-color: #00ffff;
                                     border: none;
                                     color: #000000;
@@ -279,7 +277,7 @@
                             </style>
 
                         </div>
-                       
+
 
                     </div>
                     <div class="row">
@@ -292,8 +290,8 @@
                                             <th>Mã Học Sinh</th>
                                             <th>Họ Tên</th>
                                             <th>Giới Tính</th>
-                                            <th>Năm Sinh</th>                                            
-                                            <th>Tên Hệ Học</th>                                  
+                                            <th>Năm Sinh</th>
+                                            <th>Tên Hệ Học</th>
                                             <th>Tên Lớp</th>
                                             <th>Tên Phụ Huynh</th>
                                             <th>Điện Thoại</th>
@@ -305,22 +303,22 @@
                                     <tbody>
                                         @foreach (var item in Model)
                                         {
-                                        <tr>
-                                            <td>@Html.DisplayFor(modelItem => item.MaHocSinh)</td>
-                                            <td>@Html.DisplayFor(modelItem => item.TenHocSinh)</td>
-                                            <td>@Html.DisplayFor(modelItem => item.GioiTinh)</td>
-                                            <td> @Convert.ToDateTime(item.NamSinh).ToString("dd/MM/yyyy")</td>                                           
-                                            <td>@Html.DisplayFor(modelItem => item.HeHoc.TenHeHoc)</td>
-                                            <td>@Html.DisplayFor(modelItem => item.Lop.TenLop)</td>
-                                            <td>@Html.DisplayFor(modelItem => item.TenPhuHuynh)</td>
-                                            <td>@Html.DisplayFor(modelItem => item.DienThoai)</td>
-                                            <td>@Html.DisplayFor(modelItem => item.DiaChiLienHe)</td>
-                                            <td> @Convert.ToDateTime(item.NgayDangKy).ToString("dd/MM/yyyy")</td>
-                                            <td >
-                                                <a href="@Url.Action("SuaHocSinh","Admin",new {@mahocsinh = item.MaHocSinh})" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Sửa" style="background-color:#b6ff00"><em class="fas fa-pencil-alt"></em></a>
-                                                <a href="@Url.Action("XoaHocSinh","Admin",new {@mahocsinh = item.MaHocSinh})" class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Xóa"><em class="fas fa-trash-alt"></em></a>
-                                            </td>
-                                        </tr>
+                                            <tr>
+                                                <td>@Html.DisplayFor(modelItem => item.MaHocSinh)</td>
+                                                <td>@Html.DisplayFor(modelItem => item.TenHocSinh)</td>
+                                                <td>@Html.DisplayFor(modelItem => item.GioiTinh)</td>
+                                                <td> @Convert.ToDateTime(item.NamSinh).ToString("dd/MM/yyyy")</td>
+                                                <td>@Html.DisplayFor(modelItem => item.HeHoc.TenHeHoc)</td>
+                                                <td>@Html.DisplayFor(modelItem => item.Lop.TenLop)</td>
+                                                <td>@Html.DisplayFor(modelItem => item.TenPhuHuynh)</td>
+                                                <td>@Html.DisplayFor(modelItem => item.DienThoai)</td>
+                                                <td>@Html.DisplayFor(modelItem => item.DiaChiLienHe)</td>
+                                                <td> @Convert.ToDateTime(item.NgayDangKy).ToString("dd/MM/yyyy")</td>
+                                                <td>
+                                                    <a href="@Url.Action("SuaHocSinh","Admin",new {@mahocsinh = item.MaHocSinh})" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Sửa" style="background-color:#b6ff00"><em class="fas fa-pencil-alt"></em></a>
+                                                    <a href="@Url.Action("XoaHocSinh","Admin",new {@mahocsinh = item.MaHocSinh})" class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Xóa"><em class="fas fa-trash-alt"></em></a>
+                                                </td>
+                                            </tr>
                                         }
                                     </tbody>
                                 </table>

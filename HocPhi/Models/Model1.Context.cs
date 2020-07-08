@@ -25,7 +25,6 @@ namespace HocPhi.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Admin> Admins { get; set; }
         public virtual DbSet<DiemDanh> DiemDanhs { get; set; }
         public virtual DbSet<GiaoVien> GiaoViens { get; set; }
         public virtual DbSet<HeHoc> HeHocs { get; set; }
@@ -33,5 +32,6 @@ namespace HocPhi.Models
         public virtual DbSet<Lop> Lops { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<BienLai> BienLais { get; set; }
+        public virtual DbSet<Account> Accounts { get; set; }
     }
 }

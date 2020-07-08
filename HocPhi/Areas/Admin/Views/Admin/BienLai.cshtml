@@ -70,36 +70,35 @@
                     <div class="app-header-right">
                         <div class="header-btn-lg pr-0">
                             <div class="widget-content p-0">
-                                <div class="widget-content-wrapper">
-                                    <div class="widget-content-left">
-                                        <div class="account-item clearfix js-item-menu">
-                                            @if (Session["Admin"] != null)
-                                            {
-                                                <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="p-0 btn">
+                                @if (Session["Admin"] != null)
+                                {
+                                    <div class="widget-content-wrapper">
+                                        <div class="widget-content-left">
+                                            <div class="btn-group">
 
-                                                    <img width="50" height="50" class="rounded-circle" src="@Url.Content("~/Content/images/icon/" + @Session["AdHinh"])" alt="">
+                                                <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="p-0 btn">
+                                                    <img width="42" class="rounded-circle" src="@Url.Content("~/Content/assets/images/avatars/" + @Session["AdHinh"])" alt="">
                                                     <i class="fa fa-angle-down ml-2 opacity-8"></i>
                                                 </a>
+                                                <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu dropdown-menu-right">
+                                                    <a type="button" href="@Url.Action("exit", "Admin")" tabindex="0" class="dropdown-item">Đăng Xuất</a>
 
-                                                <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu dropdown-menu-right" style="width:auto;">
-                                                    <div type="button" tabindex="0" class="dropdown-item">
-                                                        <h5>@Session["Admin"]</h5>
-
-                                                    </div>
-
-
-                                                    <div type="button" tabindex="0" class="dropdown-item">
-                                                        <a style="text-decoration:none; color:#000000" href="@Url.Action("exit", "Admin")">
-                                                            Đăng Xuất
-                                                        </a>
-                                                    </div>
-                                                   
                                                 </div>
-                                            }
+
+                                            </div>
+
+                                        </div>
+                                        <div class="widget-content-left  ml-3 header-user-info">
+                                            <div class="widget-heading">
+                                                @Session["Admin"]
+                                            </div>
+                                            <div class="widget-subheading">
+                                                VP People Manager
+                                            </div>
                                         </div>
 
                                     </div>
-                                </div>
+                                }
                             </div>
                         </div>
                     </div>
@@ -252,7 +251,6 @@
                             <a href="@Url.Action("ThemBienLai","Admin")" class="button"><span>Thêm </span> </a>
                             <style>
                                 .button {
-                                  
                                     background-color: #00ffff;
                                     border: none;
                                     color: #000000;
@@ -332,14 +330,19 @@
                                                 .Where(n => n.TrangThaiDiemDanh == false).ToList();
 
                                             int soluotddanh = 0;
-
-                                            foreach (var item3 in ddanhlist)
+                                           
+                                            if (ddanhlist != null)
                                             {
-                                                if (int.Parse(item3.NgayDiemDanh.ToString("MM")) < int.Parse(DateTime.Now.ToString("MM")))
+                                                foreach (var item3 in ddanhlist)
                                                 {
-                                                    soluotddanh++;
+
+                                                    if (int.Parse(DateTime.Now.ToString("MM")) - int.Parse(item3.NgayDiemDanh.ToString("MM")) == 1)
+                                                    {
+                                                        soluotddanh++;
+                                                    }
                                                 }
                                             }
+
                                             if (item.TrangThai != null)
                                             {
                                                 _trangthai = (bool)item.TrangThai;
@@ -351,7 +354,7 @@
                                             }
 
 
-                                            var ngaydky = @Convert.ToDateTime(item.HocSinh.NgayDangKy).ToString("MM");
+                                            var ngaydky = @Convert.ToDateTime(item.HocSinh.NgayDangKy).ToString("MM"); //cai cho nay sao lai la ngay dang ky m, ko hieu, phai la ngay nop moi hop ly chu.. z m sua73 lai thu di, cung z hahaa
                                             var ngayhtai = @Convert.ToDateTime(DateTime.Now).ToString("MM");
 
                                             int dky = int.Parse(ngaydky);
@@ -363,7 +366,7 @@
 
                                             var ddanh = db.DiemDanhs
                                             .Where(n => n.HocSinh == get)
-                                            .Where(n => n.TrangThaiDiemDanh == true)
+                                            .Where(n => n.TrangThaiDiemDanh == false)
                                             .Count();
 
                                             double tienthang = item.TienAn1thang;
@@ -379,12 +382,12 @@
                                                 <td>@item.HocSinh.HeHoc.HocPhi</td>
                                                 <td>@item.TienAn1thang</td>
                                                 <td> @Convert.ToDateTime(item.NgayNop).ToString("dd/MM/yyyy")</td>
-                                                <td>@item.NguoiNop</td>                                             
+                                                <td>@item.NguoiNop</td>
                                                 <td>@soluotddanh</td>
                                                 <td>@tong</td>
                                                 <td>
                                                     @Html.CheckBoxFor(modelItem => _trangthai)
-                                                </td>       
+                                                </td>
                                                 <td>
                                                     <a href="@Url.Action("PhieuThu","Admin",new {@mabienlai = item.MaBienLai})" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Xem"><em class="fas fa-eye"></em></a>
 

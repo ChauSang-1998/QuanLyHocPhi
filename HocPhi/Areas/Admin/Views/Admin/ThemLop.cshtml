@@ -25,7 +25,7 @@
                     </div>
                     <div class="card-body card-block">
                         <div class="form-group">
-                            <label for="inputEmail4">Mã Lớp Học </label>
+                            <label for="inputEmail4">Mã Lớp Học <span style="color:#ff0000">*</span></label>
                             @Html.EditorFor(model => model.MaLop, new { htmlAttributes = new { @class = "form-control" } })
                             @Html.ValidationMessageFor(model => model.MaLop, "", new { @class = "text-danger" })
                         </div>
@@ -77,7 +77,6 @@
                             }
                         </style>
                         <button style="float:right;" type="submit" class="btn btn-primary">Thêm</button>
-
                     </div>
                 </div>
             </div>

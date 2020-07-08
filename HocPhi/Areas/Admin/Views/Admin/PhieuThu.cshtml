@@ -77,13 +77,18 @@
 
                             int soluotddanh = 0;
 
-                            foreach (var item3 in ddanhlist)
+                            if (ddanhlist != null)
                             {
-                                if (int.Parse(item3.NgayDiemDanh.ToString("MM")) < int.Parse(DateTime.Now.ToString("MM")))
+                                foreach (var item3 in ddanhlist)
                                 {
-                                    soluotddanh++;
+
+                                    if (int.Parse(DateTime.Now.ToString("MM")) - int.Parse(item3.NgayDiemDanh.ToString("MM")) == 1)
+                                    {
+                                        soluotddanh++;
+                                    }
                                 }
                             }
+
                             if (item.TrangThai != null)
                             {
                                 _trangthai = (bool)item.TrangThai;
@@ -95,7 +100,7 @@
                             }
 
 
-                            var ngaydky = @Convert.ToDateTime(item.HocSinh.NgayDangKy).ToString("MM");
+                            var ngaydky = @Convert.ToDateTime(item.HocSinh.NgayDangKy).ToString("MM"); //cai cho nay sao lai la ngay dang ky m, ko hieu, phai la ngay nop moi hop ly chu.. z m sua73 lai thu di, cung z hahaa
                             var ngayhtai = @Convert.ToDateTime(DateTime.Now).ToString("MM");
 
                             int dky = int.Parse(ngaydky);
@@ -107,13 +112,13 @@
 
                             var ddanh = db.DiemDanhs
                             .Where(n => n.HocSinh == get)
-                            .Where(n => n.TrangThaiDiemDanh == true)
+                            .Where(n => n.TrangThaiDiemDanh == false)
                             .Count();
 
                             double tienthang = item.TienAn1thang;
                             double tienhp = item.HocSinh.HeHoc.HocPhi;
-
                             double tong = tienhp + (tienthang - (50000 * soluotddanh));
+
                             double tienanthang = 50000 * soluotddanh;
                             <tr>
                                 <td class="col-md-9">Học Phí</td>
@@ -141,9 +146,9 @@
                                     <a onclick="window.print()" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="In"><em class="fas fa-print"></em></a>
                                 </td>
                                 <td></td>
-                                <td class="text-right"><h4><strong>Tổng: </strong></h4></td>                             
-                                <td class="text-center text-danger"><h4><strong>@String.Format("{0:#,##0}",  tong) </strong></h4></td>
-                                
+                                <td class="text-right"><h4><strong>Tổng: </strong></h4></td>
+                                <td class="text-center text-danger"><h4><strong>@String.Format("{0:#,##0}", tong) </strong></h4></td>
+
                             </tr>
                         }
                     </tbody>

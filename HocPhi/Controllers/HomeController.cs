@@ -36,18 +36,39 @@ namespace HocPhi.Controllers
             {
                 using (HocPhiEntities db = new HocPhiEntities())
                 {
-                    var log = db.Admins.Where(a => a.Email.Equals(lg.Email) && a.Password.Equals(lg.MatKhau)).FirstOrDefault();
-                    if(log != null)
+                    var log = db.Accounts.Where(a => a.Email.Equals(lg.Email) && a.Password.Equals(lg.MatKhau)).FirstOrDefault();
+                    if (log != null)
                     {
-                        Session["Admin"] = log.TenAdmin;
-                        Session["AdHinh"] = log.HinhAnh;
-                        Session["dangnhap"] = log.Email;
-                        Session["ID"] = log.ID;
-                        return RedirectToAction("Admin/Index", "Admin");
+                        var getNameAccount = db.GiaoViens.Where(n => n.MaGiaoVien == log.MaGiaoVien).FirstOrDefault();
+
+                        
+                        if (getNameAccount != null)
+                        {
+                            var getClass = db.Lops.Where(n => n.MaGiaoVien == getNameAccount.MaGiaoVien).FirstOrDefault();
+                            Session["getClass"] = getClass.MaLop.ToString();
+
+                            Session["Admin"] = getNameAccount.TenGiaoVien;
+                            Session["AdHinh"] = log.HinhAnh;
+                            Session["dangnhap"] = log.Email;
+                            Session["ID"] = log.ID;
+                            Session["quyen"] = log.Quyen;
+                            return RedirectToAction("Admin/Index", "Admin");
+                        } else
+                        {
+                            Session["Admin"] = "Admin";
+                            Session["AdHinh"] = log.HinhAnh;
+                            Session["dangnhap"] = log.Email;
+                            Session["ID"] = log.ID;
+                            Session["quyen"] = log.Quyen;
+                            
+                            return RedirectToAction("Admin/Index", "Admin");
+
+                        }
+                       
                     }
                     else
                     {
-                        ViewBag.SuccessMessage = "Sai tài khoản hoặc mật khẩu !";
+                        ViewBag.SuccessMessage = "Sai Email hoặc password !";
                     }
                 }
             }

@@ -67,37 +67,36 @@
                     <div class="app-header-right">
                         <div class="header-btn-lg pr-0">
                             <div class="widget-content p-0">
+                                @if (Session["Admin"] != null)
+                                {
                                 <div class="widget-content-wrapper">
                                     <div class="widget-content-left">
-                                        <div class="account-item clearfix js-item-menu">
-                                            @if (Session["Admin"] != null)
-                                            {
-                                                <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="p-0 btn">
+                                        <div class="btn-group">
 
-                                                    <img width="50" height="50" class="rounded-circle" src="@Url.Content("~/Content/images/icon/" + @Session["AdHinh"])" alt="">
-                                                    <i class="fa fa-angle-down ml-2 opacity-8"></i>
-                                                </a>
+                                            <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="p-0 btn">
+                                                <img width="42" class="rounded-circle" src="@Url.Content("~/Content/assets/images/avatars/" + @Session["AdHinh"])" alt="">
+                                                <i class="fa fa-angle-down ml-2 opacity-8"></i>
+                                            </a>
+                                            <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu dropdown-menu-right">
+                                                <a type="button" href="@Url.Action("exit", "Admin")" tabindex="0" class="dropdown-item">Đăng Xuất</a>
+                                               
+                                            </div>
 
-                                                <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu dropdown-menu-right" style="width:auto;">
-                                                    <div type="button" tabindex="0" class="dropdown-item">
-                                                        <h5>@Session["Admin"]</h5>
-
-                                                    </div>
-
-
-                                                    <div type="button" tabindex="0" class="dropdown-item">
-                                                        <a style="text-decoration:none; color:#000000" href="@Url.Action("exit", "Admin")">
-                                                            Đăng Xuất
-                                                        </a>
-                                                    </div>
-
-                                                </div>
-                                            }
                                         </div>
 
                                     </div>
+                                    <div class="widget-content-left  ml-3 header-user-info">
+                                        <div class="widget-heading">
+                                            @Session["Admin"]
+                                        </div>
+                                        <div class="widget-subheading">
+                                            VP People Manager
+                                        </div>
+                                    </div>
+                                  
                                 </div>
-                            </div>
+                                }
+                                </div>
                         </div>
                     </div>
                 </div>
@@ -244,48 +243,7 @@
 
                             <!-- <button class="w3-button w3-xlarge w3-circle w3-teal">+</button> -->
 
-                            <a href="@Url.Action("ThemTK","Admin")" class="button"><span>Thêm </span> </a>
-                            <style>
-                                .button {
-                                    background-color: #00ffff;
-                                    border: none;
-                                    color: #000000;
-                                    text-align: center;
-                                    font-weight: bold;
-                                    font-size: 20px;
-                                    padding: 10px;
-                                    width: 150px;
-                                    height: 50px;
-                                    transition: all 0.5s;
-                                    cursor: pointer;
-                                    margin: 5px;
-                                }
-
-                                    .button span {
-                                        cursor: pointer;
-                                        display: inline-block;
-                                        position: relative;
-                                        transition: 0.5s;
-                                    }
-
-                                        .button span:after {
-                                            content: '\002b';
-                                            position: absolute;
-                                            opacity: 0;
-                                            top: 0;
-                                            right: -20px;
-                                            transition: 0.5s;
-                                        }
-
-                                    .button:hover span {
-                                        padding-right: 25px;
-                                    }
-
-                                        .button:hover span:after {
-                                            opacity: 1;
-                                            right: 0;
-                                        }
-                            </style>
+                            
 
                         </div>
 
@@ -301,8 +259,7 @@
                                             <th>Tên Giáo Viên</th>
                                             <th>Email</th>
                                             <th>Password</th>
-                                            <th>Điện Thoại</th>
-                                            <th>Địa Chỉ</th>
+                                            <th>Điện Thoại</th>              
                                             <th>Thao Tác</th>
 
                                         </tr>
@@ -311,7 +268,7 @@
                                         @foreach (var item in Model)
                                         {
                                             HocPhiEntities db = new HocPhiEntities();
-                                            var tk = db.Admins.Where(n => n.MaGiaoVien == item.MaGiaoVien).FirstOrDefault();
+                                            var tk = db.Accounts.Where(n => n.MaGiaoVien == item.MaGiaoVien).FirstOrDefault();
                                         <tr>
 
                                             <td>@Html.DisplayFor(modelItem => item.MaGiaoVien)</td>
@@ -319,19 +276,21 @@
                                             @if (tk != null)
                                             {
                                                 <td>@tk.Email</td>
+                                                <td>@Html.HiddenFor(modelItem => tk.Password)</td>
+                                                // <td>@tk.HinhAnh</td>
+                                               // <td><img src="@Url.Content("~/Content/images/icon/" + @tk.HinhAnh)" alt="Avatar" width="50px;" height="50px;" /></td>
+
                                             }
                                             else
                                             {
                                                 <td style="color:red">Chưa có Email</td>
+                                                <td style="color:red">Chưa có mật khẩu</td>
                                             }
+
                                             <td>@Html.DisplayFor(modelItem => item.DienThoai)</td>
-                                            <td>@Html.DisplayFor(modelItem => item.DiaChi)</td>
-
-
-                                            @*<td>
-            <a href="@Url.Action("SuaGiaoVien","Admin",new {@magiaovien = item.MaGiaoVien})" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Sửa" style="background-color:#b6ff00"><em class="fas fa-pencil-alt"></em></a>
-            <a href="@Url.Action("XoaGiaoVien","Admin",new {@magiaovien = item.MaGiaoVien})" class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Xóa"><em class="fas fa-trash-alt"></em></a>
-        </td>*@
+                                            <td>
+                                                <a href="@Url.Action("ThemTK","Admin",new {@magiaovien = item.MaGiaoVien})" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Thêm" style="background-color:#b6ff00"><em class="fas fa-plus"></em></a>
+                                            </td>
                                         </tr>
                                         }
                                     </tbody>

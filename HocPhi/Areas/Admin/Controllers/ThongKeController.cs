@@ -52,6 +52,10 @@ namespace HocPhi.Areas.Admin.Controllers
         [HttpGet]
         public ActionResult ThongKeBienLai()
         {
+            if (Session["ID"] == null || Session["ID"].ToString() == " ")
+            {
+                return Redirect("/Home/Login");
+            }
             ViewBag.Lop_MaL = new SelectList(db.Lops.ToList().OrderBy(n => n.MaLop), "TenLop", "TenLop");
             return View();
         }
@@ -80,7 +84,10 @@ namespace HocPhi.Areas.Admin.Controllers
         public ActionResult ThongKeDoanhThu()
         {
             //ViewBag.Lop_MaL = new SelectList(db.Lops.ToList().OrderBy(n => n.MaLop), "TenLop", "TenLop");
-
+            if (Session["ID"] == null || Session["ID"].ToString() == " ")
+            {
+                return Redirect("/Home/Login");
+            }
             return View();
 
         }
@@ -109,6 +116,10 @@ namespace HocPhi.Areas.Admin.Controllers
         [HttpGet]
         public ActionResult ThongKeCongNo()
         {
+            if (Session["ID"] == null || Session["ID"].ToString() == " ")
+            {
+                return Redirect("/Home/Login");
+            }
             //ViewBag.Lop_MaL = new SelectList(db.Lops.ToList().OrderBy(n => n.MaLop), "TenLop", "TenLop");
 
             return View();
