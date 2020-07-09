@@ -21,14 +21,15 @@ namespace HocPhi.Models
             this.HocSinhs = new HashSet<HocSinh>();
             this.Lops = new HashSet<Lop>();
         }
-        [Required(ErrorMessage ="Vui lòng nhập mã hệ học")]
+
+        [Required(ErrorMessage = "Vui lòng nhập mã hệ học")]
         public string MaHeHoc { get; set; }
         [Required(ErrorMessage = "Vui lòng nhập tên hệ học")]
         public string TenHeHoc { get; set; }
         [Required(ErrorMessage = "Vui lòng nhập học phí")]
         public Nullable<double> HocPhi { get; set; }
         public string GhiChu { get; set; }
-    
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<HocSinh> HocSinhs { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

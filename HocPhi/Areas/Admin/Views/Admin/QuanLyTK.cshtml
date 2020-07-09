@@ -259,7 +259,8 @@
                                             <th>Tên Giáo Viên</th>
                                             <th>Email</th>
                                             <th>Password</th>
-                                            <th>Điện Thoại</th>              
+                                            <th>Điện Thoại</th>  
+                                            <th>Hình Ảnh</th>
                                             <th>Thao Tác</th>
 
                                         </tr>
@@ -288,6 +289,11 @@
                                             }
 
                                             <td>@Html.DisplayFor(modelItem => item.DienThoai)</td>
+                                            <td>
+                                                @*@Html.DisplayFor(modelItem => tk.HinhAnh)*@
+                                            
+                                                @*<img src="@Url.Content(tk.HinhAnh)" />*@
+                                            </td>
                                             <td>
                                                 <a href="@Url.Action("ThemTK","Admin",new {@magiaovien = item.MaGiaoVien})" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Thêm" style="background-color:#b6ff00"><em class="fas fa-plus"></em></a>
                                             </td>

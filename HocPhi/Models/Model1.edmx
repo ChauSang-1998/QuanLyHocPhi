@@ -70,6 +70,7 @@
           <Property Name="DienThoai" Type="nvarchar" MaxLength="10" />
           <Property Name="DiaChiLienHe" Type="nvarchar" MaxLength="50" />
           <Property Name="NgayDangKy" Type="date" />
+          <Property Name="TrangThai" Type="int" />
         </EntityType>
         <EntityType Name="Lop">
           <Key>
@@ -290,6 +291,7 @@
           <NavigationProperty Name="HeHoc" Relationship="Self.FK_HocSinh_HeHoc" FromRole="HocSinh" ToRole="HeHoc" />
           <NavigationProperty Name="Lop" Relationship="Self.FK_HocSinh_Lop" FromRole="HocSinh" ToRole="Lop" />
           <NavigationProperty Name="BienLais" Relationship="HocPhiModel.FK_BienLai_HocSinh" FromRole="HocSinh" ToRole="BienLai" />
+          <Property Name="TrangThai" Type="Int32" />
         </EntityType>
         <EntityType Name="Lop">
           <Key>
@@ -554,6 +556,7 @@
           <EntitySetMapping Name="HocSinhs">
             <EntityTypeMapping TypeName="HocPhiModel.HocSinh">
               <MappingFragment StoreEntitySet="HocSinh">
+                <ScalarProperty Name="TrangThai" ColumnName="TrangThai" />
                 <ScalarProperty Name="MaHocSinh" ColumnName="MaHocSinh" />
                 <ScalarProperty Name="TenHocSinh" ColumnName="TenHocSinh" />
                 <ScalarProperty Name="GioiTinh" ColumnName="GioiTinh" />

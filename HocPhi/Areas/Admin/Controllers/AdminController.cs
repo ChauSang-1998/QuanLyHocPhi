@@ -93,9 +93,13 @@ namespace HocPhi.Areas.Admin.Controllers
         [HttpPost]
         public ActionResult SuaHeHoc(HeHoc hehoc)
         {
-            db.Entry(hehoc).State = System.Data.Entity.EntityState.Modified;
-            db.SaveChanges();
-            return RedirectToAction("HeHoc");
+            if (ModelState.IsValid)
+            {
+                db.Entry(hehoc).State = System.Data.Entity.EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("HeHoc");
+            }
+            return View();
         }
         public ActionResult XoaHeHoc(string mahehoc)
         {
@@ -104,15 +108,19 @@ namespace HocPhi.Areas.Admin.Controllers
             db.SaveChanges();
             return RedirectToAction("HeHoc");
         }
-        public ActionResult HocSinh()
+        public ActionResult HocSinh(HocSinh hs)
         {
             if (Session["ID"] == null || Session["ID"].ToString() == " ")
             {
                 return Redirect("/Home/Login");
             }
-            var hocsinh = db.HocSinhs.ToList();
-
-            return View(hocsinh);
+              //  ViewBag.hs = db.HocSinhs.ToList();
+                var hocsinh = db.HocSinhs.ToList();
+            ViewBag.hs = hocsinh;
+              //  foreach(hocsinh in )
+                
+                return View(hocsinh);
+           
         }
         [HttpGet]
         public ActionResult ThemHocSinh()
@@ -133,6 +141,7 @@ namespace HocPhi.Areas.Admin.Controllers
             ViewBag.Lop_MaL = new SelectList(db.Lops.ToList().OrderBy(n => n.MaLop), "MaLop", "MaLop");
             if (ModelState.IsValid)
             {
+                hocsinh.TrangThai = 1;
                 db.HocSinhs.Add(hocsinh);
                 db.SaveChanges();
                 return RedirectToAction("HocSinh");
@@ -153,14 +162,20 @@ namespace HocPhi.Areas.Admin.Controllers
         [HttpPost]
         public ActionResult SuaHocSinh(HocSinh hocsinh)
         {
-            db.Entry(hocsinh).State = System.Data.Entity.EntityState.Modified;
-            db.SaveChanges();
-            return RedirectToAction("HocSinh");
+            if (ModelState.IsValid)
+            {
+                db.Entry(hocsinh).State = System.Data.Entity.EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("HocSinh");
+            }
+            return View();
+                
         }
         public ActionResult XoaHocSinh(string mahocsinh)
         {
             HocSinh hocsinh = db.HocSinhs.SingleOrDefault(n => n.MaHocSinh == mahocsinh);
-            db.HocSinhs.Remove(hocsinh);
+            hocsinh.TrangThai = 0;
+           // db.HocSinhs.Remove(hocsinh);
             db.SaveChanges();
             return RedirectToAction("HocSinh");
         }
@@ -261,10 +276,14 @@ namespace HocPhi.Areas.Admin.Controllers
         public ActionResult SuaLop(Lop lop)
         {
             ViewBag.Ma_GV = new SelectList(db.GiaoViens.ToList().OrderBy(n => n.MaGiaoVien), "MaGiaoVien", "MaGiaoVien");
-
-            db.Entry(lop).State = System.Data.Entity.EntityState.Modified;
-            db.SaveChanges();
-            return RedirectToAction("Lop");
+            if (ModelState.IsValid)
+            {
+                db.Entry(lop).State = System.Data.Entity.EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Lop");
+            }
+            return View();
+                
         }
         public ActionResult XoaLop(string malop)
         {
@@ -329,9 +348,14 @@ namespace HocPhi.Areas.Admin.Controllers
         [HttpPost]
         public ActionResult SuaGiaoVien(GiaoVien gv)
         {
-            db.Entry(gv).State = System.Data.Entity.EntityState.Modified;
-            db.SaveChanges();
-            return RedirectToAction("GiaoVien");
+            if (ModelState.IsValid)
+            {
+                db.Entry(gv).State = System.Data.Entity.EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("GiaoVien");
+            }
+            return View();
+               
         }
         public ActionResult XoaGiaoVien(string magiaovien)
         {
@@ -343,18 +367,27 @@ namespace HocPhi.Areas.Admin.Controllers
         [HttpGet]
         public ActionResult ChonLopDiemDanh()
         {
-
-
-            var malop = Session["getClass"].ToString();
-
-            using (HocPhiEntities context = new HocPhiEntities())
+            if (Session["quyen"] == null)
             {
-                //var dsLop = (from lop in context.Lops
-                //             select lop).ToList();
-                var dsLop = db.Lops.Where(n=>n.MaLop == malop).ToList();
+                var malop = Session["getClass"].ToString();
+
+                var dsLop = db.Lops.Where(n => n.MaLop == malop).ToList();
 
                 return View(dsLop);
             }
+            else
+            {
+                using (HocPhiEntities context = new HocPhiEntities())
+                {
+                    var dsLop = (from lop in context.Lops
+                                 select lop).ToList();
+                    //var dsLop = db.Lops.Where(n=>n.MaLop == malop).ToList();
+
+                    return View(dsLop);
+                }
+            }
+            
+
                 
         }
         [HttpPost]
@@ -563,6 +596,12 @@ namespace HocPhi.Areas.Admin.Controllers
             {
                 return Redirect("/Home/Login");
             }
+            string filename = Path.GetFileNameWithoutExtension(gv.loadanh.FileName);
+            string extension = Path.GetExtension(gv.loadanh.FileName);
+            filename = filename + DateTime.Now.ToString("yymmssfff") + extension;
+            gv.HinhAnh = "~/img/" + filename;
+            filename = Path.Combine(Server.MapPath("~/img/"), filename);
+            gv.loadanh.SaveAs(filename);
             ViewBag.Ma_GV = new SelectList(db.GiaoViens.ToList().OrderBy(n => n.MaGiaoVien), "MaGiaoVien", "MaGiaoVien");
             ViewBag.Ma_GVv = new SelectList(db.GiaoViens.ToList().OrderBy(n => n.TenGiaoVien), "TenGiaoVien", "TenGiaoVien");
 

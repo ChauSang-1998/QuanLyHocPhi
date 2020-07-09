@@ -12,6 +12,7 @@ namespace HocPhi.Models
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    
     public partial class HocSinh
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -20,6 +21,7 @@ namespace HocPhi.Models
             this.DiemDanhs = new HashSet<DiemDanh>();
             this.BienLais = new HashSet<BienLai>();
         }
+
         [Required(ErrorMessage = "Vui lòng nhập mã học sinh")]
         public string MaHocSinh { get; set; }
         [Required(ErrorMessage = "Vui lòng nhập tên học sinh")]
@@ -49,6 +51,7 @@ namespace HocPhi.Models
         [Required(ErrorMessage = "Vui lòng nhập ngày đăng ký")]
 
         public Nullable<System.DateTime> NgayDangKy { get; set; }
+        public Nullable<int> TrangThai { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DiemDanh> DiemDanhs { get; set; }

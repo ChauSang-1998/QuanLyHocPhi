@@ -24,6 +24,7 @@ namespace HocPhi.Models
             this.Lops11 = new HashSet<Lop>();
             this.Accounts = new HashSet<Account>();
         }
+
         [Required(ErrorMessage = "Vui lòng nhập mã giáo viên")]
         public string MaGiaoVien { get; set; }
         [Required(ErrorMessage = "Vui lòng nhập tên giáo viên")]
@@ -33,7 +34,7 @@ namespace HocPhi.Models
         [Required(ErrorMessage = "Vui lòng nhập địa chỉ")]
         public string DiaChi { get; set; }
         public string HinhAnh { get; set; }
-    
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Lop> Lops { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -65,7 +65,7 @@
                                             <div class="btn-group">
 
                                                 <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="p-0 btn">
-                                                    <img width="42" class="rounded-circle" src="@Url.Content("~/Content/assets/images/avatars/" + @Session["AdHinh"])" alt="">
+                                                    <img width="42" class="rounded-circle" src="@Url.Content("~/Content/images/icon/" + @Session["AdHinh"])" alt="">
                                                     <i class="fa fa-angle-down ml-2 opacity-8"></i>
                                                 </a>
                                                 <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu dropdown-menu-right">
@@ -303,6 +303,8 @@
                                     <tbody>
                                         @foreach (var item in Model)
                                         {
+                                            if(item.TrangThai == 1)
+                                            {
                                             <tr>
                                                 <td>@Html.DisplayFor(modelItem => item.MaHocSinh)</td>
                                                 <td>@Html.DisplayFor(modelItem => item.TenHocSinh)</td>
@@ -319,6 +321,7 @@
                                                     <a href="@Url.Action("XoaHocSinh","Admin",new {@mahocsinh = item.MaHocSinh})" class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Xóa"><em class="fas fa-trash-alt"></em></a>
                                                 </td>
                                             </tr>
+                                            }
                                         }
                                     </tbody>
                                 </table>

@@ -74,7 +74,7 @@
                                             <div class="btn-group">
 
                                                 <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="p-0 btn">
-                                                    <img width="42" class="rounded-circle" src="@Url.Content("~/Content/assets/images/avatars/" + @Session["AdHinh"])" alt="">
+                                                    <img width="42" class="rounded-circle" src="@Url.Content("~/Content/images/icon/" + @Session["AdHinh"])" alt="">
                                                     <i class="fa fa-angle-down ml-2 opacity-8"></i>
                                                 </a>
                                                 <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu dropdown-menu-right">
@@ -341,7 +341,7 @@
                                                 <td>@Html.DisplayFor(modelItem => item.GhiChu)</td>
 
                                                 <td>
-                                                    <a href="@Url.Action("SuaHeHoc","Admin",new {@mahehoc = item.MaHeHoc})" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Xem" style="background-color:#b6ff00">
+                                                    <a href="@Url.Action("SuaHeHoc","Admin",new {@mahehoc = item.MaHeHoc})" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Sửa" style="background-color:#b6ff00">
                                                         <em class="fas fa-pencil-alt"></em>
                                                     </a>
                                                     <a href="@Url.Action("XoaHeHoc","Admin",new {@mahehoc = item.MaHeHoc})" class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Xóa">
