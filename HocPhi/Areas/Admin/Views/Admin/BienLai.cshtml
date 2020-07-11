@@ -93,7 +93,7 @@
                                                 @Session["Admin"]
                                             </div>
                                             <div class="widget-subheading">
-                                                VP People Manager
+                                                
                                             </div>
                                         </div>
 
@@ -371,7 +371,7 @@
 
                                             double tienthang = item.TienAn1thang;
                                             double tienhp = item.HocSinh.HeHoc.HocPhi;
-                                            double tong = tienhp + (tienthang - (50000 * soluotddanh));
+                                            double tong = tienhp + (tienthang - (item.TienAn1ngay * soluotddanh));
 
                                             <tr>
 

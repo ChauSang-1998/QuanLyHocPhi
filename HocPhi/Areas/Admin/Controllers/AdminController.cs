@@ -182,7 +182,7 @@ namespace HocPhi.Areas.Admin.Controllers
 
         public ActionResult Lop()
         {
-            CheckGV();
+          
             if (Session["ID"] == null || Session["ID"].ToString() == " ")
             {
                 return Redirect("/Home/Login");
@@ -245,11 +245,7 @@ namespace HocPhi.Areas.Admin.Controllers
             ViewBag.HeHoc_MHH = new SelectList(db.HeHocs.ToList().OrderBy(n => n.MaHeHoc), "MaHeHoc", "MaHeHoc");
             return View();
         }
-        public ActionResult CheckGV()
-        {
-            var lopgv = new SelectList(db.Lops.ToList().OrderBy(n => n.MaGiaoVien), "MaGiaoVien", "MaGiaoVien");
-            return View();
-        }
+      
         [HttpPost]
         public ActionResult ThemLop(Lop lop)
         {
