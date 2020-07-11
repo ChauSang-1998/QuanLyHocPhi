@@ -29,7 +29,6 @@ namespace HocPhi.Models
         [Required(ErrorMessage = "Vui lòng nhập học phí")]
         public Nullable<double> HocPhi { get; set; }
         public string GhiChu { get; set; }
-
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<HocSinh> HocSinhs { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

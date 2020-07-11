@@ -12,6 +12,7 @@ namespace HocPhi.Models
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    
     public partial class Lop
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -36,15 +37,9 @@ namespace HocPhi.Models
         [Required(ErrorMessage = "Vui lòng nhập ngày bắt đầu")]
 
         public Nullable<System.DateTime> NgayBatDau { get; set; }
-        [Required(ErrorMessage = "Vui lòng chọn mã giáo viên 2 ")]
-        public string MaGiaoVien1 { get; set; }
-
         public virtual GiaoVien GiaoVien { get; set; }
         public virtual HeHoc HeHoc { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<HocSinh> HocSinhs { get; set; }
-        public virtual GiaoVien GiaoVien1 { get; set; }
-        public virtual GiaoVien GiaoVien2 { get; set; }
-        public virtual GiaoVien GiaoVien11 { get; set; }
     }
 }

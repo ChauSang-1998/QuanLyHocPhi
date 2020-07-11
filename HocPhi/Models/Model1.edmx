@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="HocPhiModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="HocPhiModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Account">
           <Key>
             <PropertyRef Name="ID" />
@@ -83,7 +83,6 @@
           <Property Name="MaGiaoVien" Type="nvarchar" MaxLength="50" />
           <Property Name="NgayBatDau" Type="date" />
           <Property Name="GhiChu" Type="nvarchar(max)" />
-          <Property Name="MaGiaoVien1" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -167,18 +166,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Lop_GiaoVien1">
-          <End Role="GiaoVien" Type="Self.GiaoVien" Multiplicity="0..1" />
-          <End Role="Lop" Type="Self.Lop" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="GiaoVien">
-              <PropertyRef Name="MaGiaoVien" />
-            </Principal>
-            <Dependent Role="Lop">
-              <PropertyRef Name="MaGiaoVien1" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Lop_HeHoc">
           <End Role="HeHoc" Type="Self.HeHoc" Multiplicity="0..1" />
           <End Role="Lop" Type="Self.Lop" Multiplicity="*" />
@@ -224,28 +211,50 @@
             <End Role="GiaoVien" EntitySet="GiaoVien" />
             <End Role="Lop" EntitySet="Lop" />
           </AssociationSet>
-          <AssociationSet Name="FK_Lop_GiaoVien1" Association="Self.FK_Lop_GiaoVien1">
-            <End Role="GiaoVien" EntitySet="GiaoVien" />
-            <End Role="Lop" EntitySet="Lop" />
-          </AssociationSet>
           <AssociationSet Name="FK_Lop_HeHoc" Association="Self.FK_Lop_HeHoc">
             <End Role="HeHoc" EntitySet="HeHoc" />
             <End Role="Lop" EntitySet="Lop" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="HocPhiModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Account">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="HinhAnh" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Quyen" Type="Int32" />
+          <Property Name="MaGiaoVien" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="GiaoVien" Relationship="Self.FK_Admin_GiaoVien" FromRole="Account" ToRole="GiaoVien" />
+        </EntityType>
+        <EntityType Name="BienLai">
+          <Key>
+            <PropertyRef Name="MaBienLai" />
+          </Key>
+          <Property Name="MaBienLai" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MaHocSinh" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="NgayNop" Type="DateTime" Precision="0" />
+          <Property Name="NguoiNop" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TienAn1ngay" Type="Double" />
+          <Property Name="TienAn1thang" Type="Double" />
+          <Property Name="TrangThai" Type="Boolean" />
+          <NavigationProperty Name="HocSinh" Relationship="Self.FK_BienLai_HocSinh" FromRole="BienLai" ToRole="HocSinh" />
+        </EntityType>
         <EntityType Name="DiemDanh">
           <Key>
-            <PropertyRef Name="HocSinh" />
             <PropertyRef Name="NgayDiemDanh" />
+            <PropertyRef Name="HocSinh" />
           </Key>
-          <Property Name="HocSinh" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="HocSinh1" Relationship="Self.FK_DiemDanh_HocSinh" FromRole="DiemDanh" ToRole="HocSinh" />
-          <Property Name="TrangThaiDiemDanh" Type="Boolean" />
           <Property Name="NgayDiemDanh" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="HocSinh" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="TrangThaiDiemDanh" Type="Boolean" />
+          <NavigationProperty Name="HocSinh1" Relationship="Self.FK_DiemDanh_HocSinh" FromRole="DiemDanh" ToRole="HocSinh" />
         </EntityType>
         <EntityType Name="GiaoVien">
           <Key>
@@ -255,12 +264,9 @@
           <Property Name="TenGiaoVien" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="DienThoai" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <Property Name="DiaChi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Lops" Relationship="Self.FK_Lop_GiaoVien" FromRole="GiaoVien" ToRole="Lop" />
-          <NavigationProperty Name="Lops1" Relationship="HocPhiModel.FK_Lop_GiaoVien1" FromRole="GiaoVien" ToRole="Lop" />
-          <NavigationProperty Name="Lops2" Relationship="HocPhiModel.FK_Lop_GiaoVien2" FromRole="GiaoVien" ToRole="Lop" />
-          <NavigationProperty Name="Lops11" Relationship="HocPhiModel.FK_Lop_GiaoVien11" FromRole="GiaoVien" ToRole="Lop" />
           <Property Name="HinhAnh" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Accounts" Relationship="HocPhiModel.FK_Admin_GiaoVien1" FromRole="GiaoVien" ToRole="Account" />
+          <NavigationProperty Name="Accounts" Relationship="Self.FK_Admin_GiaoVien" FromRole="GiaoVien" ToRole="Account" />
+          <NavigationProperty Name="Lops" Relationship="Self.FK_Lop_GiaoVien" FromRole="GiaoVien" ToRole="Lop" />
         </EntityType>
         <EntityType Name="HeHoc">
           <Key>
@@ -287,11 +293,11 @@
           <Property Name="DienThoai" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <Property Name="DiaChiLienHe" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="NgayDangKy" Type="DateTime" Precision="0" />
+          <Property Name="TrangThai" Type="Int32" />
+          <NavigationProperty Name="BienLais" Relationship="Self.FK_BienLai_HocSinh" FromRole="HocSinh" ToRole="BienLai" />
           <NavigationProperty Name="DiemDanhs" Relationship="Self.FK_DiemDanh_HocSinh" FromRole="HocSinh" ToRole="DiemDanh" />
           <NavigationProperty Name="HeHoc" Relationship="Self.FK_HocSinh_HeHoc" FromRole="HocSinh" ToRole="HeHoc" />
           <NavigationProperty Name="Lop" Relationship="Self.FK_HocSinh_Lop" FromRole="HocSinh" ToRole="Lop" />
-          <NavigationProperty Name="BienLais" Relationship="HocPhiModel.FK_BienLai_HocSinh" FromRole="HocSinh" ToRole="BienLai" />
-          <Property Name="TrangThai" Type="Int32" />
         </EntityType>
         <EntityType Name="Lop">
           <Key>
@@ -301,16 +307,12 @@
           <Property Name="TenLop" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="MaHeHoc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="SoLuong" Type="Int32" />
-          <Property Name="MaGiaoVien" MaxLength="50" FixedLength="false" Unicode="true" Type="String" />
+          <Property Name="MaGiaoVien" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="NgayBatDau" Type="DateTime" Precision="0" />
           <Property Name="GhiChu" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="GiaoVien" Relationship="Self.FK_Lop_GiaoVien" FromRole="Lop" ToRole="GiaoVien" />
           <NavigationProperty Name="HeHoc" Relationship="Self.FK_Lop_HeHoc" FromRole="Lop" ToRole="HeHoc" />
           <NavigationProperty Name="HocSinhs" Relationship="Self.FK_HocSinh_Lop" FromRole="Lop" ToRole="HocSinh" />
-          <Property Name="NgayBatDau" Type="DateTime" Precision="0" />
-          <NavigationProperty Name="GiaoVien1" Relationship="HocPhiModel.FK_Lop_GiaoVien1" FromRole="Lop" ToRole="GiaoVien" />
-          <Property Name="MaGiaoVien1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="GiaoVien2" Relationship="HocPhiModel.FK_Lop_GiaoVien2" FromRole="Lop" ToRole="GiaoVien" />
-          <NavigationProperty Name="GiaoVien11" Relationship="HocPhiModel.FK_Lop_GiaoVien11" FromRole="Lop" ToRole="GiaoVien" />
         </EntityType>
         <EntityType Name="sysdiagram">
           <Key>
@@ -322,6 +324,30 @@
           <Property Name="version" Type="Int32" />
           <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
+        <Association Name="FK_Admin_GiaoVien">
+          <End Role="GiaoVien" Type="Self.GiaoVien" Multiplicity="0..1" />
+          <End Role="Account" Type="Self.Account" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GiaoVien">
+              <PropertyRef Name="MaGiaoVien" />
+            </Principal>
+            <Dependent Role="Account">
+              <PropertyRef Name="MaGiaoVien" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BienLai_HocSinh">
+          <End Role="HocSinh" Type="Self.HocSinh" Multiplicity="0..1" />
+          <End Role="BienLai" Type="Self.BienLai" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HocSinh">
+              <PropertyRef Name="MaHocSinh" />
+            </Principal>
+            <Dependent Role="BienLai">
+              <PropertyRef Name="MaHocSinh" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_DiemDanh_HocSinh">
           <End Role="HocSinh" Type="Self.HocSinh" Multiplicity="1" />
           <End Role="DiemDanh" Type="Self.DiemDanh" Multiplicity="*" />
@@ -383,12 +409,22 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="HocPhiEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Accounts" EntityType="Self.Account" />
+          <EntitySet Name="BienLais" EntityType="Self.BienLai" />
           <EntitySet Name="DiemDanhs" EntityType="Self.DiemDanh" />
           <EntitySet Name="GiaoViens" EntityType="Self.GiaoVien" />
           <EntitySet Name="HeHocs" EntityType="Self.HeHoc" />
           <EntitySet Name="HocSinhs" EntityType="Self.HocSinh" />
           <EntitySet Name="Lops" EntityType="Self.Lop" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <AssociationSet Name="FK_Admin_GiaoVien" Association="Self.FK_Admin_GiaoVien">
+            <End Role="GiaoVien" EntitySet="GiaoViens" />
+            <End Role="Account" EntitySet="Accounts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BienLai_HocSinh" Association="Self.FK_BienLai_HocSinh">
+            <End Role="HocSinh" EntitySet="HocSinhs" />
+            <End Role="BienLai" EntitySet="BienLais" />
+          </AssociationSet>
           <AssociationSet Name="FK_DiemDanh_HocSinh" Association="Self.FK_DiemDanh_HocSinh">
             <End Role="HocSinh" EntitySet="HocSinhs" />
             <End Role="DiemDanh" EntitySet="DiemDanhs" />
@@ -409,137 +445,55 @@
             <End Role="Lop" EntitySet="Lops" />
             <End Role="HocSinh" EntitySet="HocSinhs" />
           </AssociationSet>
-          <EntitySet Name="BienLais" EntityType="HocPhiModel.BienLai" />
-          <AssociationSet Name="FK_BienLai_HocSinh" Association="HocPhiModel.FK_BienLai_HocSinh">
-            <End Role="HocSinh" EntitySet="HocSinhs" />
-            <End Role="BienLai" EntitySet="BienLais" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Lop_GiaoVien1" Association="HocPhiModel.FK_Lop_GiaoVien1">
-            <End Role="GiaoVien" EntitySet="GiaoViens" />
-            <End Role="Lop" EntitySet="Lops" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Lop_GiaoVien2" Association="HocPhiModel.FK_Lop_GiaoVien2">
-            <End Role="GiaoVien" EntitySet="GiaoViens" />
-            <End Role="Lop" EntitySet="Lops" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Lop_GiaoVien11" Association="HocPhiModel.FK_Lop_GiaoVien11">
-            <End Role="GiaoVien" EntitySet="GiaoViens" />
-            <End Role="Lop" EntitySet="Lops" />
-          </AssociationSet>
-          <EntitySet Name="Accounts" EntityType="HocPhiModel.Account" />
-          <AssociationSet Name="FK_Admin_GiaoVien1" Association="HocPhiModel.FK_Admin_GiaoVien1">
-            <End Role="GiaoVien" EntitySet="GiaoViens" />
-            <End Role="Account" EntitySet="Accounts" />
-          </AssociationSet>
         </EntityContainer>
-        <EntityType Name="BienLai">
-          <Key>
-            <PropertyRef Name="MaBienLai" />
-          </Key>
-          <Property Name="MaBienLai" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="MaHocSinh" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="NgayNop" Type="DateTime" Precision="0" />
-          <Property Name="NguoiNop" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="TienAn1ngay" Type="Double" />
-          <Property Name="TienAn1thang" Type="Double" />
-          <NavigationProperty Name="HocSinh" Relationship="HocPhiModel.FK_BienLai_HocSinh" FromRole="BienLai" ToRole="HocSinh" />
-          <Property Name="TrangThai" Type="Boolean" />
-        </EntityType>
-        <Association Name="FK_BienLai_HocSinh">
-          <End Type="HocPhiModel.HocSinh" Role="HocSinh" Multiplicity="0..1" />
-          <End Type="HocPhiModel.BienLai" Role="BienLai" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="HocSinh">
-              <PropertyRef Name="MaHocSinh" />
-            </Principal>
-            <Dependent Role="BienLai">
-              <PropertyRef Name="MaHocSinh" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Lop_GiaoVien1">
-          <End Type="HocPhiModel.GiaoVien" Role="GiaoVien" Multiplicity="0..1" />
-          <End Type="HocPhiModel.Lop" Role="Lop" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="GiaoVien">
-              <PropertyRef Name="MaGiaoVien" />
-            </Principal>
-            <Dependent Role="Lop">
-              <PropertyRef Name="MaGiaoVien" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Lop_GiaoVien2">
-          <End Type="HocPhiModel.GiaoVien" Role="GiaoVien" Multiplicity="0..1" />
-          <End Type="HocPhiModel.Lop" Role="Lop" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="GiaoVien">
-              <PropertyRef Name="MaGiaoVien" />
-            </Principal>
-            <Dependent Role="Lop">
-              <PropertyRef Name="MaGiaoVien" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Lop_GiaoVien11">
-          <End Type="HocPhiModel.GiaoVien" Role="GiaoVien" Multiplicity="0..1" />
-          <End Type="HocPhiModel.Lop" Role="Lop" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="GiaoVien">
-              <PropertyRef Name="MaGiaoVien" />
-            </Principal>
-            <Dependent Role="Lop">
-              <PropertyRef Name="MaGiaoVien1" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="Account">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" />
-          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="HinhAnh" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="MaGiaoVien" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="GiaoVien" Relationship="HocPhiModel.FK_Admin_GiaoVien1" FromRole="Account" ToRole="GiaoVien" />
-          <Property Name="Quyen" Type="Int32" />
-        </EntityType>
-        <Association Name="FK_Admin_GiaoVien1">
-          <End Type="HocPhiModel.GiaoVien" Role="GiaoVien" Multiplicity="0..1" />
-          <End Type="HocPhiModel.Account" Role="Account" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="GiaoVien">
-              <PropertyRef Name="MaGiaoVien" />
-            </Principal>
-            <Dependent Role="Account">
-              <PropertyRef Name="MaGiaoVien" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="HocPhiModelStoreContainer" CdmEntityContainer="HocPhiEntities">
+          <EntitySetMapping Name="Accounts">
+            <EntityTypeMapping TypeName="HocPhiModel.Account">
+              <MappingFragment StoreEntitySet="Account">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="HinhAnh" ColumnName="HinhAnh" />
+                <ScalarProperty Name="Quyen" ColumnName="Quyen" />
+                <ScalarProperty Name="MaGiaoVien" ColumnName="MaGiaoVien" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BienLais">
+            <EntityTypeMapping TypeName="HocPhiModel.BienLai">
+              <MappingFragment StoreEntitySet="BienLai">
+                <ScalarProperty Name="MaBienLai" ColumnName="MaBienLai" />
+                <ScalarProperty Name="MaHocSinh" ColumnName="MaHocSinh" />
+                <ScalarProperty Name="NgayNop" ColumnName="NgayNop" />
+                <ScalarProperty Name="NguoiNop" ColumnName="NguoiNop" />
+                <ScalarProperty Name="TienAn1ngay" ColumnName="TienAn1ngay" />
+                <ScalarProperty Name="TienAn1thang" ColumnName="TienAn1thang" />
+                <ScalarProperty Name="TrangThai" ColumnName="TrangThai" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="DiemDanhs">
             <EntityTypeMapping TypeName="HocPhiModel.DiemDanh">
               <MappingFragment StoreEntitySet="DiemDanh">
                 <ScalarProperty Name="NgayDiemDanh" ColumnName="NgayDiemDanh" />
-                <ScalarProperty Name="TrangThaiDiemDanh" ColumnName="TrangThaiDiemDanh" />
                 <ScalarProperty Name="HocSinh" ColumnName="HocSinh" />
+                <ScalarProperty Name="TrangThaiDiemDanh" ColumnName="TrangThaiDiemDanh" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="GiaoViens">
             <EntityTypeMapping TypeName="HocPhiModel.GiaoVien">
               <MappingFragment StoreEntitySet="GiaoVien">
-                <ScalarProperty Name="HinhAnh" ColumnName="HinhAnh" />
                 <ScalarProperty Name="MaGiaoVien" ColumnName="MaGiaoVien" />
                 <ScalarProperty Name="TenGiaoVien" ColumnName="TenGiaoVien" />
                 <ScalarProperty Name="DienThoai" ColumnName="DienThoai" />
                 <ScalarProperty Name="DiaChi" ColumnName="DiaChi" />
+                <ScalarProperty Name="HinhAnh" ColumnName="HinhAnh" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -556,7 +510,6 @@
           <EntitySetMapping Name="HocSinhs">
             <EntityTypeMapping TypeName="HocPhiModel.HocSinh">
               <MappingFragment StoreEntitySet="HocSinh">
-                <ScalarProperty Name="TrangThai" ColumnName="TrangThai" />
                 <ScalarProperty Name="MaHocSinh" ColumnName="MaHocSinh" />
                 <ScalarProperty Name="TenHocSinh" ColumnName="TenHocSinh" />
                 <ScalarProperty Name="GioiTinh" ColumnName="GioiTinh" />
@@ -567,19 +520,19 @@
                 <ScalarProperty Name="DienThoai" ColumnName="DienThoai" />
                 <ScalarProperty Name="DiaChiLienHe" ColumnName="DiaChiLienHe" />
                 <ScalarProperty Name="NgayDangKy" ColumnName="NgayDangKy" />
+                <ScalarProperty Name="TrangThai" ColumnName="TrangThai" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Lops">
             <EntityTypeMapping TypeName="HocPhiModel.Lop">
               <MappingFragment StoreEntitySet="Lop">
-                <ScalarProperty Name="MaGiaoVien1" ColumnName="MaGiaoVien1" />
-                <ScalarProperty Name="NgayBatDau" ColumnName="NgayBatDau" />
                 <ScalarProperty Name="MaLop" ColumnName="MaLop" />
                 <ScalarProperty Name="TenLop" ColumnName="TenLop" />
                 <ScalarProperty Name="MaHeHoc" ColumnName="MaHeHoc" />
                 <ScalarProperty Name="SoLuong" ColumnName="SoLuong" />
                 <ScalarProperty Name="MaGiaoVien" ColumnName="MaGiaoVien" />
+                <ScalarProperty Name="NgayBatDau" ColumnName="NgayBatDau" />
                 <ScalarProperty Name="GhiChu" ColumnName="GhiChu" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -592,31 +545,6 @@
                 <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
                 <ScalarProperty Name="version" ColumnName="version" />
                 <ScalarProperty Name="definition" ColumnName="definition" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="BienLais">
-            <EntityTypeMapping TypeName="HocPhiModel.BienLai">
-              <MappingFragment StoreEntitySet="BienLai">
-                <ScalarProperty Name="TrangThai" ColumnName="TrangThai" />
-                <ScalarProperty Name="TienAn1thang" ColumnName="TienAn1thang" />
-                <ScalarProperty Name="TienAn1ngay" ColumnName="TienAn1ngay" />
-                <ScalarProperty Name="NguoiNop" ColumnName="NguoiNop" />
-                <ScalarProperty Name="NgayNop" ColumnName="NgayNop" />
-                <ScalarProperty Name="MaHocSinh" ColumnName="MaHocSinh" />
-                <ScalarProperty Name="MaBienLai" ColumnName="MaBienLai" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Accounts">
-            <EntityTypeMapping TypeName="HocPhiModel.Account">
-              <MappingFragment StoreEntitySet="Account">
-                <ScalarProperty Name="Quyen" ColumnName="Quyen" />
-                <ScalarProperty Name="MaGiaoVien" ColumnName="MaGiaoVien" />
-                <ScalarProperty Name="HinhAnh" ColumnName="HinhAnh" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

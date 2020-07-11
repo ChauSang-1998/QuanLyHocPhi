@@ -182,6 +182,7 @@ namespace HocPhi.Areas.Admin.Controllers
 
         public ActionResult Lop()
         {
+            CheckGV();
             if (Session["ID"] == null || Session["ID"].ToString() == " ")
             {
                 return Redirect("/Home/Login");
@@ -190,7 +191,7 @@ namespace HocPhi.Areas.Admin.Controllers
             
             ViewBag.Lop_MaL = new SelectList(db.Lops.ToList().OrderBy(n => n.MaLop), "MaLop", "MaLop");
             return View(lop);
-
+            
 
         }
         [HttpGet]
@@ -244,11 +245,16 @@ namespace HocPhi.Areas.Admin.Controllers
             ViewBag.HeHoc_MHH = new SelectList(db.HeHocs.ToList().OrderBy(n => n.MaHeHoc), "MaHeHoc", "MaHeHoc");
             return View();
         }
+        public ActionResult CheckGV()
+        {
+            var lopgv = new SelectList(db.Lops.ToList().OrderBy(n => n.MaGiaoVien), "MaGiaoVien", "MaGiaoVien");
+            return View();
+        }
         [HttpPost]
         public ActionResult ThemLop(Lop lop)
         {
             ViewBag.Ma_GV = new SelectList(db.GiaoViens.ToList().OrderBy(n => n.MaGiaoVien), "MaGiaoVien", "MaGiaoVien");
-            ViewBag.Ma_GV1 = new SelectList(db.GiaoViens.ToList().OrderBy(n => n.MaGiaoVien), "MaGiaoVien1", "MaGiaoVien1");
+           // ViewBag.Ma_GV1 = new SelectList(db.GiaoViens.ToList().OrderBy(n => n.MaGiaoVien), "MaGiaoVien1", "MaGiaoVien1");
 
             ViewBag.HeHoc_MHH = new SelectList(db.HeHocs.ToList().OrderBy(n => n.MaHeHoc), "MaHeHoc", "MaHeHoc");
             if (ModelState.IsValid)
@@ -259,6 +265,7 @@ namespace HocPhi.Areas.Admin.Controllers
             }
             return View();
         }
+
         [HttpGet]
         public ActionResult SuaLop(string malop)
         {
@@ -596,12 +603,7 @@ namespace HocPhi.Areas.Admin.Controllers
             {
                 return Redirect("/Home/Login");
             }
-            string filename = Path.GetFileNameWithoutExtension(gv.loadanh.FileName);
-            string extension = Path.GetExtension(gv.loadanh.FileName);
-            filename = filename + DateTime.Now.ToString("yymmssfff") + extension;
-            gv.HinhAnh = "~/img/" + filename;
-            filename = Path.Combine(Server.MapPath("~/img/"), filename);
-            gv.loadanh.SaveAs(filename);
+            
             ViewBag.Ma_GV = new SelectList(db.GiaoViens.ToList().OrderBy(n => n.MaGiaoVien), "MaGiaoVien", "MaGiaoVien");
             ViewBag.Ma_GVv = new SelectList(db.GiaoViens.ToList().OrderBy(n => n.TenGiaoVien), "TenGiaoVien", "TenGiaoVien");
 

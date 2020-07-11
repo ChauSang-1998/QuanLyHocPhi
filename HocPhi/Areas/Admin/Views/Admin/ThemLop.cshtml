@@ -52,12 +52,7 @@
                             @Html.DropDownList("MaGiaoVien", (IEnumerable<SelectListItem>)ViewBag.Ma_GV, "---Chọn---", new { @class = "form-control" })
                             @Html.ValidationMessageFor(model => model.MaGiaoVien, "", new { @class = "text-danger" })
                         </div>
-                        <div class="form-group ">
-                            <label for="inputEmail4">Mã Giáo Viên 2 <span style="color:#ff0000">*</span></label>
-                            @Html.DropDownList("MaGiaoVien1", (IEnumerable<SelectListItem>)ViewBag.Ma_GV, "---Chọn---", new { @class = "form-control" })
-
-                            @Html.ValidationMessageFor(model => model.MaGiaoVien1, "", new { @class = "text-danger" })
-                        </div>
+                        
                        
                       
                         <div class="form-group" id="NgayBatDau">

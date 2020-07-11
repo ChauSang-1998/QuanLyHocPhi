@@ -14,9 +14,9 @@ namespace HocPhi.Models
     
     public partial class DiemDanh
     {
+        public System.DateTime NgayDiemDanh { get; set; }
         public string HocSinh { get; set; }
         public Nullable<bool> TrangThaiDiemDanh { get; set; }
-        public System.DateTime NgayDiemDanh { get; set; }
     
         public virtual HocSinh HocSinh1 { get; set; }
     }

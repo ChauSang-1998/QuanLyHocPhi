@@ -12,14 +12,13 @@ namespace HocPhi.Models
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    
     public partial class HocSinh
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public HocSinh()
         {
-            this.DiemDanhs = new HashSet<DiemDanh>();
             this.BienLais = new HashSet<BienLai>();
+            this.DiemDanhs = new HashSet<DiemDanh>();
         }
 
         [Required(ErrorMessage = "Vui lòng nhập mã học sinh")]
@@ -52,12 +51,12 @@ namespace HocPhi.Models
 
         public Nullable<System.DateTime> NgayDangKy { get; set; }
         public Nullable<int> TrangThai { get; set; }
-    
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<BienLai> BienLais { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DiemDanh> DiemDanhs { get; set; }
         public virtual HeHoc HeHoc { get; set; }
         public virtual Lop Lop { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<BienLai> BienLais { get; set; }
     }
 }

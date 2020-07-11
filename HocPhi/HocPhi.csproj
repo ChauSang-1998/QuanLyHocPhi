@@ -343,13 +343,6 @@
     <Content Include="Areas\Admin\Views\Admin\ThemGiaoVien.cshtml" />
     <Content Include="Areas\Admin\Views\Admin\SuaGiaoVien.cshtml" />
     <Content Include="Areas\Admin\Views\Admin\XemHocSinh.cshtml" />
-    <EntityDeploy Include="Models\Model1.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Model1.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\Model1.edmx.diagram">
-      <DependentUpon>Model1.edmx</DependentUpon>
-    </Content>
     <Content Include="Areas\Admin\Views\Admin\ChonLopDiemDanh.cshtml" />
     <Content Include="Areas\Admin\Views\Admin\DiemDanhUpdate.cshtml" />
     <Content Include="Areas\Admin\Views\Admin\LayDanhSachDiemDanh.cshtml" />
@@ -368,6 +361,13 @@
     <Content Include="Areas\Admin\Views\ThongKe\CongNo.cshtml" />
     <Content Include="Areas\Admin\Views\Admin\QuanLyTK.cshtml" />
     <Content Include="Areas\Admin\Views\Admin\ThemTK.cshtml" />
+    <EntityDeploy Include="Models\Model1.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Model1.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\Model1.edmx.diagram">
+      <DependentUpon>Model1.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -412,6 +412,7 @@
     <Compile Include="Models\HocSinh.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\List.cs" />
     <Compile Include="Models\Login.cs" />
     <Compile Include="Models\Lop.cs">
       <DependentUpon>Model1.tt</DependentUpon>

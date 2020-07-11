@@ -301,8 +301,7 @@
                                             <th>Tên Lớp</th>
                                             <th>Tên Hệ Học</th>
                                             <th>Số Lượng</th>
-                                            <th>Tên Giáo Viên 1</th>
-                                            <th>Tên Giáo Viên 2</th>
+                                            <th>Tên Giáo Viên </th>                                       
                                             <th>Ngày Bắt Đầu</th>
                                             <th>Ghi Chú</th>
                                             <th>Thao Tác</th>
@@ -320,7 +319,6 @@
 
 
                                                 ViewBag.gv1 = db.GiaoViens.Where(n => n.MaGiaoVien == item.MaGiaoVien).First();
-                                                ViewBag.gv2 = db.GiaoViens.Where(n => n.MaGiaoVien == item.MaGiaoVien1).First();
 
                                             }
                                             <tr>
@@ -329,8 +327,8 @@
                                                 <td>@Html.DisplayFor(modelItem => item.TenLop)</td>
                                                 <td>@Html.DisplayFor(modelItem => item.HeHoc.TenHeHoc)</td>
                                                 <td>@Html.DisplayFor(modelItem => item.SoLuong)</td>
-                                                <td>@ViewBag.gv1.TenGiaoVien</td>
-                                                <td>@ViewBag.gv2.TenGiaoVien</td>
+                                                <td>@Html.DisplayFor(modelItem => item.GiaoVien.TenGiaoVien)</td>
+                                              
                                                 @*<td>@Html.DisplayFor(modelItem => item.MaGiaoVien)</td>
                                                 <td>@Html.DisplayFor(modelItem => item.MaGiaoVien1)</td>*@
 

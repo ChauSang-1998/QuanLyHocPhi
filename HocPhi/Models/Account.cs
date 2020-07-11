@@ -11,16 +11,15 @@ namespace HocPhi.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.Web;
+    
     public partial class Account
     {
         public int ID { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
         public string HinhAnh { get; set; }
-        public HttpPostedFileBase loadanh{ get; set; }
-    public string MaGiaoVien { get; set; }
         public Nullable<int> Quyen { get; set; }
+        public string MaGiaoVien { get; set; }
     
         public virtual GiaoVien GiaoVien { get; set; }
     }
