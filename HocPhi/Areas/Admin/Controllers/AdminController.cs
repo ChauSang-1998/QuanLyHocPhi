@@ -46,8 +46,6 @@ namespace HocPhi.Areas.Admin.Controllers
 
             return View();
         }
-       
-
         public ActionResult HeHoc()
         {
             if (Session["ID"] == null || Session["ID"].ToString() == " ")
@@ -574,6 +572,7 @@ namespace HocPhi.Areas.Admin.Controllers
         }
         public ActionResult QuanLyTK()
         {
+            
             if (Session["ID"] == null || Session["ID"].ToString() == " ")
             {
                 return Redirect("/Home/Login");
@@ -586,6 +585,7 @@ namespace HocPhi.Areas.Admin.Controllers
         [HttpGet]
         public ActionResult ThemTK(string magiaovien)
         {
+           
             if (Session["ID"] == null || Session["ID"].ToString() == " ")
             {
                 return Redirect("/Home/Login");
@@ -597,11 +597,17 @@ namespace HocPhi.Areas.Admin.Controllers
         [HttpPost]
         public ActionResult ThemTK(Account gv)
         {
+
             if (Session["ID"] == null || Session["ID"].ToString() == " ")
             {
                 return Redirect("/Home/Login");
             }
-            
+            string filename = Path.GetFileNameWithoutExtension(gv.abc.FileName);
+            string extension = Path.GetExtension(gv.abc.FileName);
+            filename = filename + DateTime.Now.ToString("yymmssfff") + extension;
+            gv.HinhAnh = "~/img/" + filename;
+            filename = Path.Combine(Server.MapPath("~/img/"), filename);
+            gv.abc.SaveAs(filename);
             ViewBag.Ma_GV = new SelectList(db.GiaoViens.ToList().OrderBy(n => n.MaGiaoVien), "MaGiaoVien", "MaGiaoVien");
             ViewBag.Ma_GVv = new SelectList(db.GiaoViens.ToList().OrderBy(n => n.TenGiaoVien), "TenGiaoVien", "TenGiaoVien");
 
