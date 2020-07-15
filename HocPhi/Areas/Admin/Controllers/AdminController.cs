@@ -238,11 +238,11 @@ namespace HocPhi.Areas.Admin.Controllers
                 return Redirect("/Home/Login");
             }
             var sql = @"SELECT MaGiaoVien FROM GiaoVien GV0 WHERE GV0.MaGiaoVien NOT IN (SELECT GV.MaGiaoVien FROM GiaoVien GV, Lop L WHERE GV.MaGiaoVien = L.MaGiaoVien)";
+            ViewBag.HeHoc_MHH = new SelectList(db.HeHocs.ToList().OrderBy(n => n.MaHeHoc), "MaHeHoc", "MaHeHoc");
 
             ViewBag.Ma_GV = new SelectList(db.Database.SqlQuery<QueryResults>(sql).ToList(), "MaGiaoVien", "MaGiaoVien");
             ViewBag.Ma_GV1 = new SelectList(db.GiaoViens.ToList().OrderBy(n => n.MaGiaoVien), "MaGiaoVien1", "MaGiaoVien1");
 
-            ViewBag.HeHoc_MHH = new SelectList(db.HeHocs.ToList().OrderBy(n => n.MaHeHoc), "MaHeHoc", "MaHeHoc");
             return View();
         }
       

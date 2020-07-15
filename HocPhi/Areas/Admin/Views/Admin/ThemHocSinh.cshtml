@@ -88,15 +88,15 @@
                         <button style="float:right;" type="submit" class="btn btn-primary">Thêm</button>
                         <script>
                             $(document).ready(function () {
-                                $("#MaHeHoc").change(function ()
-                                                            $.get("/Admin/Admin/GetStateListhehoc_lop", { MaLop: $("#MaHeHoc").val() }, function (data) {
+                                $("#MaHeHoc").change(function () {
+                                    $.get("/Admin/Admin/GetStateListhehoc_lop", { MaLop: $("#MaHeHoc").val() }, function (data) {
                                         $("#MaLop").empty();
                                         $.each(data, function (index, row) {
                                             $("#MaLop").append("<option value='" + row.MaLop + "'>" + row.TenLop + "</option>")
                                         });
                                     });
-                            })
-                                                    });
+                                })
+                            });
                         </script>
                         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js"></script>
                     </div>
