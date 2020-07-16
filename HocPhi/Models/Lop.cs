@@ -30,7 +30,7 @@ namespace HocPhi.Models
         public string MaHeHoc { get; set; }
         [Required(ErrorMessage = "Vui lòng nhập số lượng")]
         public Nullable<int> SoLuong { get; set; }
-        [Required(ErrorMessage = "Vui lòng chọn mã giáo viên 1")]
+        [Required(ErrorMessage = "Vui lòng chọn mã giáo viên ")]
         public string MaGiaoVien { get; set; }
 
         public string GhiChu { get; set; }
