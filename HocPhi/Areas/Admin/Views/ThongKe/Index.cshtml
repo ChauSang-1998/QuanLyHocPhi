@@ -39,7 +39,7 @@
                 dataType: 'json',
                 success: function (response) {
                     $.each(response, function (index, value) {
-                        $('#classroom').append(`<option value="` + value.MaLop + `"` + `data-datetime='` + moment.utc(value.Mindate)+ `'>` + value.TenLopHoc + `</option >`);
+                        $('#classroom').append(`<option value="` + value.IDLop + `"` + `data-datetime='` + moment.utc(value.Mindate)+ `'>` + value.TenLopHoc + `</option >`);
                     });
                 }
             });
